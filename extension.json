@@ -1,0 +1,30 @@
+{
+  "name": "CookieConsent",
+  "type": "other",
+  "version": "0.1.0",
+  "author": [
+    "Marijn van Wezel"
+  ],
+  "url": "https://www.mediawiki.org/wiki/Extension:CookieConsent",
+  "descriptionmsg": "cookieconsent-desc",
+  "license-name": "GPL-2.0-or-later",
+  "requires": {
+    "MediaWiki": ">= 1.39.0",
+    "platform": {
+      "php": ">= 7.4.3"
+    }
+  },
+  "MessagesDirs": {
+    "CookieConsent": [
+      "i18n"
+    ]
+  },
+  "AutoloadNamespaces": {
+    "CookieConsent\\": "src/"
+  },
+  "ServiceWiringFiles": [
+    "src/CookieConsent.wiring.php"
+  ],
+  "load_composer_autoloader": true,
+  "manifest_version": 2
+}

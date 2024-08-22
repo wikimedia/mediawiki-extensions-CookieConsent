@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Marijn van Wezel"
+		]
+	},
+	"cookieconsent-desc": "GDPR-compliant cookie notice for MediaWiki",
+	"cookieconsent-extensionname": "CookieConsent"
+}
