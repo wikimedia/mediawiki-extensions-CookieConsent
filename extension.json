@@ -20,7 +20,30 @@
     ]
   },
   "AutoloadNamespaces": {
-    "CookieConsent\\": "src/"
+    "MediaWiki\\Extension\\CookieConsent\\": "src/"
+  },
+  "HookHandlers": {
+	"main": {
+	  "class": "MediaWiki\\Extension\\CookieConsent\\Hooks"
+	}
+  },
+  "Hooks": {
+	"BeforePageDisplay": "main"
+  },
+  "ResourceModules": {
+	"ext.CookieConsent": {
+	  "localBasePath": "resources/ext.CookieConsent",
+      "remoteExtPath": "CookieConsent/resources/ext.CookieConsent",
+	  "scripts": [
+		"ext.CookieConsent.js"
+	  ],
+      "dependencies": [
+		"mediawiki.cookie",
+		"oojs-ui-core",
+		"oojs-ui-widgets",
+		"oojs-ui-windows"
+	  ]
+	}
   },
   "ServiceWiringFiles": [
     "src/CookieConsent.wiring.php"
