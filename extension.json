@@ -37,6 +37,19 @@
 	  "scripts": [
 		"ext.CookieConsent.js"
 	  ],
+	  "messages": [
+		"cookieconsent-dialog-title",
+		"cookieconsent-save-preferences",
+		"cookieconsent-category-name-strictly-necessary",
+		"cookieconsent-category-name-preference",
+		"cookieconsent-category-name-analytical",
+		"cookieconsent-category-name-advertising",
+		"cookieconsent-category-desc-strictly-necessary",
+		"cookieconsent-category-desc-preference",
+		"cookieconsent-category-desc-analytical",
+		"cookieconsent-category-desc-advertising",
+		"cookieconsent-dialog-intro"
+	  ],
       "dependencies": [
 		"mediawiki.cookie",
 		"oojs-ui-core",

@@ -1,4 +1,4 @@
-function showConsentDialog(data) {
+function openConsentDialogWithPreferences(consentPreferences) {
 	function ConsentDialog( config ) {
 		ConsentDialog.super.call( this, config );
 	}
@@ -7,12 +7,15 @@ function showConsentDialog(data) {
 	// @see https://www.mediawiki.org/wiki/OOUI/Windows/Process_Dialogs
 	OO.inheritClass( ConsentDialog, OO.ui.ProcessDialog );
 
+	const windowManager = new OO.ui.WindowManager();
+	$( document.body ).append( windowManager.$element );
+
 	ConsentDialog.static.name = 'ext.CookieConsent.consentDialog';
-	ConsentDialog.static.title = 'Cookie consent preferences'; // TODO: Localisation
+	ConsentDialog.static.title = mw.message( 'cookieconsent-dialog-title' ).text();
 	ConsentDialog.static.actions = [
 		{
 			action: 'save-preferences',
-			label: 'Save preferences', // TODO: Localisation
+			label: mw.message( 'cookieconsent-save-preferences' ).text(),
 			flags: [ 'primary', 'progressive' ]
 		}
 	];
@@ -25,32 +28,33 @@ function showConsentDialog(data) {
 			selected: true,
 			disabled: true,
 		} );
+
 		this.preferenceCookiesCheckbox = new OO.ui.CheckboxInputWidget();
 		this.statisticsCookiesCheckbox = new OO.ui.CheckboxInputWidget();
 		this.marketingCookiesCheckbox = new OO.ui.CheckboxInputWidget();
 
 		const necessaryCookiesField = new OO.ui.FieldLayout( this.necessaryCookiesCheckbox, {
-			label: 'Strictly necessary cookies', // TODO: Localisation
+			label: mw.message( 'cookieconsent-category-name-strictly-necessary' ).text(),
 			align: 'inline',
-			help: 'These cookies are essential for you to browse the website and use its features, such as accessing secure areas of the site.' // TODO: Localisation
+			help: mw.message( 'cookieconsent-category-desc-strictly-necessary' ).text()
 		});
 
 		const preferenceCookiesField = new OO.ui.FieldLayout( this.preferenceCookiesCheckbox, {
-			label: 'Preference cookies', // TODO: Localisation
+			label: mw.message( 'cookieconsent-category-name-preference' ).text(),
 			align: 'inline',
-			help: 'Also known as “functionality cookies,” these cookies allows the website to remember choices you have made in the past, like what language you prefer, what region you would like weather reports for, or what your user name and password are so you can automatically log in.' // TODO: Localisation
+			help: mw.message( 'cookieconsent-category-desc-preference' ).text()
 		});
 
 		const statisticsCookiesField = new OO.ui.FieldLayout( this.statisticsCookiesCheckbox, {
-			label: 'Analytical cookies', // TODO: Localisation
+			label: mw.message( 'cookieconsent-category-name-analytical' ).text(),
 			align: 'inline',
-			help: 'Also known as “performance cookies,” these cookies collect information about how you use a website, like which pages you visited and which links you clicked on. None of this information can be used to identify you. It is all aggregated and, therefore, anonymized. Their sole purpose is to improve website functions.' // TODO: Localisation
+			help: mw.message( 'cookieconsent-category-desc-analytical' ).text()
 		});
 
 		const marketingCookiesField = new OO.ui.FieldLayout( this.marketingCookiesCheckbox, {
-			label: 'Advertising cookies', // TODO: Localisation
+			label: mw.message( 'cookieconsent-category-name-advertising' ).text(),
 			align: 'inline',
-			help: 'These cookies track your online activity to help advertisers deliver more relevant advertising or to limit how many times you see an ad. These cookies can share that information with other organizations or advertisers.' // TODO: Localisation
+			help: mw.message( 'cookieconsent-category-desc-advertising' ).text()
 		});
 
 		this.panel = new OO.ui.PanelLayout( {
@@ -66,44 +70,69 @@ function showConsentDialog(data) {
 				marketingCookiesField
 			] );
 
-		this.panel.$element.append( '<p>We use cookies to personalise content, to provide certain features and to analyse traffic.</p><br/>' );
+		this.panel.$element.append( mw.message('cookieconsent-dialog-intro').parse() );
+		this.panel.$element.append( '<br/>' );
 		this.panel.$element.append( this.content.$element );
 
 		this.$body.append( this.panel.$element );
+	}
+
+	// Set which consent preferences have (previously) been given
+	ConsentDialog.prototype.setConsentPreferences = function ( consentPreferences) {
+		this.necessaryCookiesCheckbox.setSelected( consentPreferences.necessary );
+		this.preferenceCookiesCheckbox.setSelected( consentPreferences.preference );
+		this.statisticsCookiesCheckbox.setSelected( consentPreferences.statistics );
+		this.marketingCookiesCheckbox.setSelected( consentPreferences.marketing );
+	}
+
+	// Get the current consent preferences as visible in the dialog
+	ConsentDialog.prototype.getConsentPreferences = function () {
+		return {
+			necessary: this.necessaryCookiesCheckbox.selected,
+			preference: this.preferenceCookiesCheckbox.selected,
+			statistics: this.statisticsCookiesCheckbox.selected,
+			marketing: this.marketingCookiesCheckbox.selected
+		};
 	}
 
 	// The setup process takes data inserted during the initialisation of the window, and updates the presentation
 	// accordingly.
 	ConsentDialog.prototype.getSetupProcess = function ( data ) {
 		return ConsentDialog.super.prototype.getSetupProcess.call( this, data )
-			.next( function () {
-				this.necessaryCookiesCheckbox.setSelected( data.consent.necessary );
-				this.preferenceCookiesCheckbox.setSelected( data.consent.preference );
-				this.statisticsCookiesCheckbox.setSelected( data.consent.statistics );
-				this.marketingCookiesCheckbox.setSelected( data.consent.marketing );
-			}, this );
+			.next( () => this.setConsentPreferences( data.consentPreferences ), this );
 	}
 
 	ConsentDialog.prototype.getActionProcess = function ( action ) {
-		return new OO.ui.Process( () => console.log( action ) );
+		return new OO.ui.Process( function () {
+			if ( action !== 'save-preferences' ) {
+				// Fallback to parent handler
+				return ConsentDialog.super.prototype.getActionProcess.call( this, action );
+			}
+
+			updateConsentPreferences( this.getConsentPreferences() );
+			windowManager.closeWindow( this );
+		}, this );
 	}
 
 	ConsentDialog.prototype.getBodyHeight = function () {
 		return this.panel.$element.outerHeight( true );
 	}
 
-	const windowManager = new OO.ui.WindowManager();
-	$( document.body ).append( windowManager.$element );
-
 	const consentDialog = new ConsentDialog( {
 		size: 'large'
 	} );
 
 	windowManager.addWindows( [ consentDialog ] );
-	windowManager.openWindow( consentDialog, { consent: consentData } );
+	windowManager.openWindow( consentDialog, { consentPreferences: consentPreferences } );
 }
 
-function getConsentData() {
+function updateConsentPreferences( consentPreferences ) {
+	console.log(consentPreferences);
+
+	mw.cookie.set( 'cookieconsent_consent_given' );
+}
+
+function currentConsentPreferences() {
 	return {
 		necessary: true,
 		preference: true,
@@ -112,6 +141,15 @@ function getConsentData() {
 	}
 }
 
-const consentData = getConsentData();
+function showConsentDialog() {
+	openConsentDialogWithPreferences( currentConsentPreferences() );
+}
 
-showConsentDialog(consentData);
+$.when( $.ready ).then( function () {
+	if ( mw.cookie.get( 'cookieconsent_consent_given' ) ) {
+		// Consent has already been given
+		return;
+	}
+
+	showConsentDialog();
+} );
