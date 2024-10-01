@@ -1,30 +1,31 @@
-// Names of the cookies to store consent
-const COOKIECONSENT_COOKIES = {
-	preference: 'cookieconsent_preference_consent',
-	statistics: 'cookieconsent_statistics_consent',
-	marketing: 'cookieconsent_marketing_consent',
+// TODO: Make the categories configurable
+const COOKIECONSENT_CATEGORIES = {
+	preference: {
+		cookie: 'cookieconsent_consent_preference',
+		name: mw.message( 'cookieconsent-category-name-preference' ).text(),
+		description: mw.message( 'cookieconsent-category-desc-preference' ).text(),
+	},
+	statistics: {
+		cookie: 'cookieconsent_consent_statistics',
+		name: mw.message( 'cookieconsent-category-name-statistics' ).text(),
+		description: mw.message( 'cookieconsent-category-desc-statistics' ).text(),
+	},
+	marketing: {
+		cookie: 'cookieconsent_consent_marketing',
+		name: mw.message( 'cookieconsent-category-name-marketing' ).text(),
+		description: mw.message( 'cookieconsent-category-desc-marketing' ).text()
+	},
 }
 
 // Value of the above cookies when consent is given
 const COOKIECONSENT_CONSENT_GIVEN = 'given';
 
 // Cookie that is set when the dialog has been dismissed
-const COOKIECONSENT_DIALOG_DISMISSED = 'cookieconsent_dialog_dismissed';
+const COOKIECONSENT_DIALOG_DISMISSED_COOKIE = 'cookieconsent_dialog_dismissed';
 
 function openConsentDialogWithPreferences(consentPreferences) {
 	function ConsentDialog( config ) {
 		ConsentDialog.super.call( this, config );
-	}
-
-	function UpdateConsentPreference( category, preference ) {
-		const cookieName = COOKIECONSENT_COOKIES[category];
-
-		if ( preference ) {
-			mw.cookie.set( cookieName, 'given', { expires: 60 * 60 * 24 * 365 } );
-		} else {
-			// Unset the cookie
-			mw.cookie.set( cookieName, null );
-		}
 	}
 
 	// The consent dialog is a process dialog
@@ -34,6 +35,10 @@ function openConsentDialogWithPreferences(consentPreferences) {
 	const windowManager = new OO.ui.WindowManager();
 	$( document.body ).append( windowManager.$element );
 
+	const consentDialog = new ConsentDialog( {
+		size: 'large'
+	} );
+
 	ConsentDialog.static.name = 'ext.CookieConsent.consentDialog';
 	ConsentDialog.static.title = mw.message( 'cookieconsent-dialog-title' ).text();
 	ConsentDialog.static.actions = [
@@ -41,55 +46,48 @@ function openConsentDialogWithPreferences(consentPreferences) {
 			action: 'save-preferences',
 			label: mw.message( 'cookieconsent-save-preferences' ).text(),
 			flags: [ 'primary', 'progressive' ]
-		}
+		},
 	];
+
+	if ( mw.cookie.get( COOKIECONSENT_DIALOG_DISMISSED_COOKIE ) ) {
+		// If the dialog has been dismissed before, add a "Cancel" button
+		ConsentDialog.static.actions.push( {
+			action: 'cancel',
+			label: mw.message( 'cancel' ).text(),
+			flags: 'safe'
+		} );
+	}
 
 	ConsentDialog.prototype.initialize = function () {
 		ConsentDialog.super.prototype.initialize.apply( this, arguments );
 
 		// Necessary cookies checkbox
-		this.necessaryCookiesCheckbox = new OO.ui.CheckboxInputWidget( { selected: true, disabled: true } );
-		const necessaryCookiesField = new OO.ui.FieldLayout( this.necessaryCookiesCheckbox, {
+		const necessaryCookiesFieldsetItem = new OO.ui.FieldLayout( new OO.ui.CheckboxInputWidget( { selected: true, disabled: true } ), {
 			label: mw.message( 'cookieconsent-category-name-strictly-necessary' ).text(),
 			align: 'inline',
 			help: mw.message( 'cookieconsent-category-desc-strictly-necessary' ).text()
 		});
 
-		this.preferenceCookiesCheckbox = new OO.ui.CheckboxInputWidget();
-		const preferenceCookiesField = new OO.ui.FieldLayout( this.preferenceCookiesCheckbox, {
-			label: mw.message( 'cookieconsent-category-name-preference' ).text(),
-			align: 'inline',
-			help: mw.message( 'cookieconsent-category-desc-preference' ).text()
-		});
+		// Other categories
+		this.preferenceCheckboxes = {};
+		this.preferenceFieldsetItems = [necessaryCookiesFieldsetItem];
 
-		this.statisticsCookiesCheckbox = new OO.ui.CheckboxInputWidget();
-		const statisticsCookiesField = new OO.ui.FieldLayout( this.statisticsCookiesCheckbox, {
-			label: mw.message( 'cookieconsent-category-name-analytical' ).text(),
-			align: 'inline',
-			help: mw.message( 'cookieconsent-category-desc-analytical' ).text()
-		});
-
-		this.marketingCookiesCheckbox = new OO.ui.CheckboxInputWidget();
-		const marketingCookiesField = new OO.ui.FieldLayout( this.marketingCookiesCheckbox, {
-			label: mw.message( 'cookieconsent-category-name-advertising' ).text(),
-			align: 'inline',
-			help: mw.message( 'cookieconsent-category-desc-advertising' ).text()
-		});
+		for ( const [ categoryName, category ] of Object.entries( COOKIECONSENT_CATEGORIES ) ) {
+			this.preferenceCheckboxes[categoryName] = new OO.ui.CheckboxInputWidget();
+			this.preferenceFieldsetItems.push(new OO.ui.FieldLayout( this.preferenceCheckboxes[categoryName], {
+				label: category.name,
+				align: 'inline',
+				help: category.description
+			}));
+		}
 
 		this.panel = new OO.ui.PanelLayout( {
 			padded: true,
 			expanded: false
 		} );
 
-		const fieldsetItems = [
-			necessaryCookiesField,
-			preferenceCookiesField,
-			statisticsCookiesField,
-			marketingCookiesField
-		];
-
 		this.content = new OO.ui.FieldsetLayout( { classes: [ 'cookieconsent-dialog-fieldset-layout' ] } )
-			.addItems( fieldsetItems );
+			.addItems( this.preferenceFieldsetItems );
 
 		this.panel.$element.append( mw.message( 'cookieconsent-dialog-intro' ).parse() );
 		this.panel.$element.append( this.content.$element );
@@ -101,18 +99,20 @@ function openConsentDialogWithPreferences(consentPreferences) {
 	// Let the dialog know which consent preferences have (previously) been given, so that the checkboxes can be
 	// (un)checked accordingly
 	ConsentDialog.prototype.setConsentPreferences = function ( consentPreferences ) {
-		this.preferenceCookiesCheckbox.setSelected( consentPreferences.preference );
-		this.statisticsCookiesCheckbox.setSelected( consentPreferences.statistics );
-		this.marketingCookiesCheckbox.setSelected( consentPreferences.marketing );
+		for ( const [ categoryName, category ] of Object.entries( COOKIECONSENT_CATEGORIES ) ) {
+			this.preferenceCheckboxes[categoryName].setSelected( consentPreferences[categoryName] );
+		}
 	}
 
 	// Get the current consent preferences as visible in the dialog
 	ConsentDialog.prototype.getConsentPreferences = function () {
-		return {
-			preference: this.preferenceCookiesCheckbox.selected,
-			statistics: this.statisticsCookiesCheckbox.selected,
-			marketing: this.marketingCookiesCheckbox.selected
-		};
+		const consentPreferences = {};
+
+		for ( const [categoryName, category] of Object.entries( COOKIECONSENT_CATEGORIES ) ) {
+			consentPreferences[categoryName] = this.preferenceCheckboxes[categoryName].isSelected();
+		}
+
+		return consentPreferences;
 	}
 
 	// The setup process takes data inserted during the initialisation of the window, and updates the presentation
@@ -124,33 +124,38 @@ function openConsentDialogWithPreferences(consentPreferences) {
 
 	ConsentDialog.prototype.getActionProcess = function ( action ) {
 		return new OO.ui.Process( function () {
-			if ( action !== 'save-preferences' ) {
+			if ( action === 'save-preferences' ) {
+				const consentPreferences = this.getConsentPreferences();
+
+				for ( let [categoryName, preference] of Object.entries(consentPreferences) ) {
+					const cookieName = COOKIECONSENT_CATEGORIES[categoryName].cookie;
+					const cookieValue = preference ? 'given' : null;
+					const cookieOptions = preference ?
+						{ expires: 60 * 60 * 24 * 365 } : // 1 year
+						{};
+
+					mw.cookie.set( cookieName, cookieValue, cookieOptions );
+				}
+
+				if ( !mw.cookie.get( COOKIECONSENT_DIALOG_DISMISSED_COOKIE ) ) {
+					// Set the dialog to "dismissed" to disable automatic opening
+					mw.cookie.set( COOKIECONSENT_DIALOG_DISMISSED_COOKIE, 'dismissed' );
+				}
+
+				// Reload the page
+				location.reload();
+			} else if ( action === 'cancel' ) {
+				windowManager.closeWindow( consentDialog );
+			} else {
 				// Fallback to parent handler
 				return ConsentDialog.super.prototype.getActionProcess.call( this, action );
 			}
-
-			const consentPreferences = this.getConsentPreferences();
-
-			for ( let [category, preference] of Object.entries(consentPreferences) ) {
-				UpdateConsentPreference( category, preference );
-			}
-
-			if ( !mw.cookie.get( COOKIECONSENT_DIALOG_DISMISSED ) ) {
-				// Set the dialog to "dismissed" to disable automatic opening
-				mw.cookie.set( COOKIECONSENT_DIALOG_DISMISSED, 'dismissed' );
-			}
-
-			windowManager.closeWindow( this );
 		}, this );
 	}
 
 	ConsentDialog.prototype.getBodyHeight = function () {
 		return this.panel.$element.outerHeight( true );
 	}
-
-	const consentDialog = new ConsentDialog( {
-		size: 'large'
-	} );
 
 	windowManager.addWindows( [ consentDialog ] );
 	windowManager.openWindow( consentDialog, { consentPreferences: consentPreferences } );
@@ -159,8 +164,8 @@ function openConsentDialogWithPreferences(consentPreferences) {
 function getCurrentConsentPreferences() {
 	const consentPreferences = {};
 
-	for ( const [category, cookieName] of Object.entries( COOKIECONSENT_COOKIES ) ) {
-		consentPreferences[category] = mw.cookie.get( cookieName ) === COOKIECONSENT_CONSENT_GIVEN;
+	for ( const [categoryName, category] of Object.entries( COOKIECONSENT_CATEGORIES ) ) {
+		consentPreferences[categoryName] = mw.cookie.get( category.cookie ) === COOKIECONSENT_CONSENT_GIVEN;
 	}
 
 	return consentPreferences;
@@ -179,7 +184,7 @@ $.when( $.ready ).then( function () {
 		showConsentDialog();
 	});
 
-	if ( !mw.cookie.get( COOKIECONSENT_DIALOG_DISMISSED ) ) {
+	if ( !mw.cookie.get( COOKIECONSENT_DIALOG_DISMISSED_COOKIE ) ) {
 		showConsentDialog();
 	}
 } );

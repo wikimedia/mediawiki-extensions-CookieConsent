@@ -42,16 +42,17 @@
 		"ext.CookieConsent.css"
 	  ],
 	  "messages": [
+		"cancel",
 		"cookieconsent-dialog-title",
 		"cookieconsent-save-preferences",
 		"cookieconsent-category-name-strictly-necessary",
 		"cookieconsent-category-name-preference",
-		"cookieconsent-category-name-analytical",
-		"cookieconsent-category-name-advertising",
+		"cookieconsent-category-name-statistics",
+		"cookieconsent-category-name-marketing",
 		"cookieconsent-category-desc-strictly-necessary",
 		"cookieconsent-category-desc-preference",
-		"cookieconsent-category-desc-analytical",
-		"cookieconsent-category-desc-advertising",
+		"cookieconsent-category-desc-statistics",
+		"cookieconsent-category-desc-marketing",
 		"cookieconsent-dialog-intro",
 		"cookieconsent-dialog-outro"
 	  ],

@@ -12,6 +12,12 @@
 // This is fully tested in ServiceWiringTest.php
 // @codeCoverageIgnoreStart
 
-return [];
+use MediaWiki\Extension\CookieConsent\CookiePreferences;
+
+return [
+	"CookieConsent.CookiePreferences" => static function (): CookiePreferences {
+		return new CookiePreferences( RequestContext::getMain() );
+	}
+];
 
 // @codeCoverageIgnoreEnd
