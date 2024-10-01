@@ -3,8 +3,10 @@
 namespace MediaWiki\Extension\CookieConsent;
 
 use MediaWiki\Hook\BeforePageDisplayHook;
+use MediaWiki\Hook\SkinAddFooterLinksHook;
+use Skin;
 
-class Hooks implements BeforePageDisplayHook {
+class Hooks implements BeforePageDisplayHook, SkinAddFooterLinksHook {
 	/**
 	 * @inheritDoc
 	 */
@@ -13,5 +15,17 @@ class Hooks implements BeforePageDisplayHook {
 
 		$out->addModules( $modules );
 		$out->enableOOUI();
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function onSkinAddFooterLinks( Skin $skin, string $key, array &$footerItems ) {
+		if ( $key === 'places' ) {
+			$footerItems['manage-cookie-preferences'] = \Html::rawElement( 'a', [
+				'href' => '#',
+				'id' => 'manage-cookie-preferences'
+			], $skin->msg( 'cookieconsent-manage-preferences' ) );
+		}
 	}
 }

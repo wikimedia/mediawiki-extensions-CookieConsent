@@ -28,7 +28,8 @@
 	}
   },
   "Hooks": {
-	"BeforePageDisplay": "main"
+	"BeforePageDisplay": "main",
+	"SkinAddFooterLinks": "main"
   },
   "ResourceModules": {
 	"ext.CookieConsent": {
@@ -36,6 +37,9 @@
       "remoteExtPath": "CookieConsent/resources/ext.CookieConsent",
 	  "scripts": [
 		"ext.CookieConsent.js"
+	  ],
+	  "styles": [
+		"ext.CookieConsent.css"
 	  ],
 	  "messages": [
 		"cookieconsent-dialog-title",
@@ -48,7 +52,8 @@
 		"cookieconsent-category-desc-preference",
 		"cookieconsent-category-desc-analytical",
 		"cookieconsent-category-desc-advertising",
-		"cookieconsent-dialog-intro"
+		"cookieconsent-dialog-intro",
+		"cookieconsent-dialog-outro"
 	  ],
       "dependencies": [
 		"mediawiki.cookie",
