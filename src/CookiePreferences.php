@@ -9,19 +9,6 @@ class CookiePreferences {
 	public const COOKIES_STATISTICS = 'statistics';
 	public const COOKIES_MARKETING = 'marketing';
 
-	// TODO: Make the categories configurable
-	private const COOKIE_CATEGORIES = [
-		self::COOKIES_PREFERENCE => [
-			'cookie' => 'cookieconsent_consent_preference',
-		],
-		self::COOKIES_STATISTICS => [
-			'cookie' => 'cookieconsent_consent_statistics',
-		],
-		self::COOKIES_MARKETING => [
-			'cookie' => 'cookieconsent_consent_marketing',
-		],
-	];
-
 	/**
 	 * @var RequestContext
 	 */
@@ -36,18 +23,16 @@ class CookiePreferences {
 
 	/**
 	 * Returns true if and only if consent was given for the given cookie category. The category should
-	 * be one of the CookiePreferences::COOKIE_* constants.
+	 * be one of the CookiePreferences::COOKIE_* constants, or a custom category name.
 	 *
 	 * @param string $category
 	 * @return bool
 	 */
 	public function isConsentGranted( string $category ): bool {
-		$cookieName = self::COOKIE_CATEGORIES[$category]['cookie'] ?? null;
+		return $this->requestContext->getRequest()->getCookie( $this->getCookieName( $category ) ) === 'given';
+	}
 
-		if ( !$cookieName ) {
-			return false;
-		}
-
-		return $this->requestContext->getRequest()->getCookie( $cookieName ) === 'given';
+	private function getCookieName( string $category ): string {
+		return "cookieconsent_consent_$category";
 	}
 }

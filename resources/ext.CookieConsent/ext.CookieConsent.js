@@ -11,6 +11,11 @@ let cc = ( function ( $ ) {
 	const COOKIECONSENT_DIALOG_DISMISSED_COOKIE_NAME = 'cookieconsent_dialog_dismissed';
 
 	return {
+		/**
+		 * Returns the names of the categories for which consent is given.
+		 *
+		 * @returns {*[]}
+		 */
 		getConsentedCategories: function () {
 			let consentedCategories = [];
 
