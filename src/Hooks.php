@@ -2,11 +2,13 @@
 
 namespace MediaWiki\Extension\CookieConsent;
 
+use Config;
 use MediaWiki\Hook\BeforePageDisplayHook;
 use MediaWiki\Hook\SkinAddFooterLinksHook;
+use MediaWiki\ResourceLoader\Hook\ResourceLoaderGetConfigVarsHook;
 use Skin;
 
-class Hooks implements BeforePageDisplayHook, SkinAddFooterLinksHook {
+class Hooks implements BeforePageDisplayHook, ResourceLoaderGetConfigVarsHook, SkinAddFooterLinksHook {
 	/**
 	 * @inheritDoc
 	 */
@@ -15,6 +17,13 @@ class Hooks implements BeforePageDisplayHook, SkinAddFooterLinksHook {
 
 		$out->addModules( $modules );
 		$out->enableOOUI();
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function onResourceLoaderGetConfigVars( array &$vars, $skin, Config $config ): void {
+		$vars['wgCookieConsentCategories'] = $config->get( 'CookieConsentCategories' );
 	}
 
 	/**

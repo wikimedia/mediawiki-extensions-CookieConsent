@@ -22,6 +22,25 @@
   "AutoloadNamespaces": {
     "MediaWiki\\Extension\\CookieConsent\\": "src/"
   },
+  "config": {
+	"CookieConsentCategories": {
+	  "value": {
+		"preference": {
+		  "namemsg": "cookieconsent-category-name-preference",
+		  "descriptionmsg": "cookieconsent-category-desc-preference"
+		},
+		"statistics": {
+		  "namemsg": "cookieconsent-category-name-statistics",
+		  "descriptionmsg": "cookieconsent-category-desc-statistics"
+		},
+		"marketing": {
+		  "namemsg": "cookieconsent-category-name-marketing",
+		  "descriptionmsg": "cookieconsent-category-desc-marketing"
+		}
+	  },
+	  "merge_strategy": "provide_default"
+	}
+  },
   "HookHandlers": {
 	"main": {
 	  "class": "MediaWiki\\Extension\\CookieConsent\\Hooks"
@@ -29,6 +48,7 @@
   },
   "Hooks": {
 	"BeforePageDisplay": "main",
+	"ResourceLoaderGetConfigVars": "main",
 	"SkinAddFooterLinks": "main"
   },
   "ResourceModules": {
@@ -43,8 +63,12 @@
 	  ],
 	  "messages": [
 		"cancel",
-		"cookieconsent-dialog-title",
+		"cookieconsent-detailed-dialog-title",
+		"cookieconsent-simple-dialog-title",
+		"cookieconsent-manage-preferences",
+		"cookieconsent-manage-preferences-short",
 		"cookieconsent-save-preferences",
+		"cookieconsent-accept-all",
 		"cookieconsent-category-name-strictly-necessary",
 		"cookieconsent-category-name-preference",
 		"cookieconsent-category-name-statistics",
@@ -53,8 +77,9 @@
 		"cookieconsent-category-desc-preference",
 		"cookieconsent-category-desc-statistics",
 		"cookieconsent-category-desc-marketing",
-		"cookieconsent-dialog-intro",
-		"cookieconsent-dialog-outro"
+		"cookieconsent-detailed-dialog-intro",
+		"cookieconsent-detailed-dialog-outro",
+		"cookieconsent-simple-dialog-content"
 	  ],
       "dependencies": [
 		"mediawiki.cookie",
