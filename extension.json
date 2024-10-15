@@ -57,7 +57,7 @@
       "remoteExtPath": "CookieConsent/resources/ext.CookieConsent",
 	  "scripts": [
 		"ext.CookieConsent.js",
-		"CookieConsent.init.js"
+		"ext.CookieConsent.init.js"
 	  ],
 	  "styles": [
 		"ext.CookieConsent.css"

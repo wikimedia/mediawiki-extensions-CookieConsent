@@ -1,6 +1,7 @@
 /**
  * JavaScript file for the CookieConsent extension.
  */
+
 let cc = ( function ( $ ) {
 	'use strict';
 
@@ -11,23 +12,6 @@ let cc = ( function ( $ ) {
 	const COOKIECONSENT_DIALOG_DISMISSED_COOKIE_NAME = 'cookieconsent_dialog_dismissed';
 
 	return {
-		/**
-		 * Returns the names of the categories for which consent is given.
-		 *
-		 * @returns {*[]}
-		 */
-		getConsentedCategories: function () {
-			let consentedCategories = [];
-
-			for ( const [categoryName, isConsented] of Object.entries( this.__getConsentPreferences() ) ) {
-				if (isConsented) {
-					consentedCategories.push( categoryName );
-				}
-			}
-
-			return consentedCategories;
-		},
-
 		/**
 		 * Returns true if consent is given for the given category name, false otherwise.
 		 *
