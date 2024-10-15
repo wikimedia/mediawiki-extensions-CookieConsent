@@ -1,7 +1,7 @@
 /**
  * JavaScript file for the CookieConsent extension.
  */
-let cookieConsent = ( function ( $ ) {
+let cc = ( function ( $ ) {
 	'use strict';
 
 	// Value of the above cookies when consent is given
@@ -10,60 +10,17 @@ let cookieConsent = ( function ( $ ) {
 	// Cookie that is set when the dialog has been dismissed
 	const COOKIECONSENT_DIALOG_DISMISSED_COOKIE_NAME = 'cookieconsent_dialog_dismissed';
 
-	/**
-	 * Returns the name of the cookie that stores the consent of the given category.
-	 */
-	this.getCookieName = function( categoryName ) {
-		return 'cookieconsent_consent_' + categoryName;
-	}
-
-	/**
-	 * Updates the consent preferences with the given preferences.
-	 */
-	this.updateConsentPreferences = function( consentPreferences ) {
-		for ( let [categoryName, preference] of Object.entries( consentPreferences ) ) {
-			const cookieName = getCookieName( categoryName );
-			const cookieValue = preference ? 'given' : null;
-			const cookieOptions = preference ?
-				{ expires: 60 * 60 * 24 * 365 } : // 1 year
-				{};
-
-			mw.cookie.set( cookieName, cookieValue, cookieOptions );
-		}
-
-		if ( !mw.cookie.get( COOKIECONSENT_DIALOG_DISMISSED_COOKIE_NAME ) ) {
-			// Set the dialog to "dismissed" to disable automatic opening
-			mw.cookie.set( COOKIECONSENT_DIALOG_DISMISSED_COOKIE_NAME, 'dismissed' );
-		}
-
-		// Reload the page
-		location.reload();
-	}
-
-
 	return {
-		/**
-		 * Returns the available consent categories.
-		 *
-		 * @returns {Object}
-		 */
-		getCategories: function () {
-			return mw.config.get( 'wgCookieConsentCategories' );
-		},
+		getConsentedCategories: function () {
+			let consentedCategories = [];
 
-		/**
-		 * Returns a map of the consent preferences for each category.
-		 *
-		 * @returns {Object}
-		 */
-		getPreferences: function () {
-			const preferences = {};
-
-			for ( const categoryName of Object.keys( this.getCategories() ) ) {
-				preferences[categoryName] = this.isConsentGiven( categoryName );
+			for ( const [categoryName, isConsented] of Object.entries( this.__getConsentPreferences() ) ) {
+				if (isConsented) {
+					consentedCategories.push( categoryName );
+				}
 			}
 
-			return preferences;
+			return consentedCategories;
 		},
 
 		/**
@@ -73,7 +30,7 @@ let cookieConsent = ( function ( $ ) {
 		 * @returns {boolean}
 		 */
 		isConsentGiven: function ( categoryName ) {
-			return mw.cookie.get( getCookieName( categoryName ) ) === COOKIECONSENT_CONSENT_GIVEN_COOKIE_VALUE;
+			return mw.cookie.get( this.__getCookieName( categoryName ) ) === COOKIECONSENT_CONSENT_GIVEN_COOKIE_VALUE;
 		},
 
 		/**
@@ -86,7 +43,9 @@ let cookieConsent = ( function ( $ ) {
 		/**
 		 * Opens the detailed cookie preferences dialog.
 		 */
-		openDetailedCookiePreferencesDialog: function () {
+		openDetailedDialog: function () {
+			const cookieConsent = this;
+
 			function DetailedConsentDialog( config ) {
 				DetailedConsentDialog.super.call( this, config );
 			}
@@ -94,8 +53,6 @@ let cookieConsent = ( function ( $ ) {
 			// The consent dialog is a process dialog
 			// @see https://www.mediawiki.org/wiki/OOUI/Windows/Process_Dialogs
 			OO.inheritClass( DetailedConsentDialog, OO.ui.ProcessDialog );
-
-			const cookieConsent = this;
 
 			const windowManager = new OO.ui.WindowManager();
 			$( document.body ).append( windowManager.$element );
@@ -137,7 +94,7 @@ let cookieConsent = ( function ( $ ) {
 				this.preferenceCheckboxes = {};
 				this.preferenceFieldsetItems = [necessaryCookiesFieldsetItem];
 
-				for ( const [ categoryName, category ] of Object.entries( cookieConsent.getCategories() ) ) {
+				for ( const [ categoryName, category ] of Object.entries( cookieConsent.__getConsentCategories() ) ) {
 					this.preferenceCheckboxes[categoryName] = new OO.ui.CheckboxInputWidget();
 					this.preferenceFieldsetItems.push(new OO.ui.FieldLayout( this.preferenceCheckboxes[categoryName], {
 						label: category.namemsg ? mw.message( category.namemsg ).text() : category.name,
@@ -164,7 +121,7 @@ let cookieConsent = ( function ( $ ) {
 			// Let the dialog know which consent preferences have (previously) been given, so that the checkboxes can be
 			// (un)checked accordingly
 			DetailedConsentDialog.prototype.setConsentPreferences = function ( consentPreferences ) {
-				for ( const categoryName of Object.keys( cookieConsent.getCategories() ) ) {
+				for ( const categoryName of Object.keys( cookieConsent.__getConsentCategories() ) ) {
 					this.preferenceCheckboxes[categoryName].setSelected( consentPreferences[categoryName] );
 				}
 			}
@@ -173,7 +130,7 @@ let cookieConsent = ( function ( $ ) {
 			DetailedConsentDialog.prototype.getConsentPreferences = function () {
 				const consentPreferences = {};
 
-				for ( const categoryName of Object.keys( cookieConsent.getCategories() ) ) {
+				for ( const categoryName of Object.keys( cookieConsent.__getConsentCategories() ) ) {
 					consentPreferences[categoryName] = this.preferenceCheckboxes[categoryName].isSelected();
 				}
 
@@ -190,7 +147,7 @@ let cookieConsent = ( function ( $ ) {
 			DetailedConsentDialog.prototype.getActionProcess = function ( action ) {
 				return new OO.ui.Process( function () {
 					if ( action === 'save-preferences' ) {
-						updateConsentPreferences( this.getConsentPreferences() );
+						cookieConsent.__updateConsentPreferences( this.getConsentPreferences() );
 					} else if ( action === 'cancel' ) {
 						windowManager.closeWindow( consentDialog );
 					} else {
@@ -205,18 +162,18 @@ let cookieConsent = ( function ( $ ) {
 			}
 
 			windowManager.addWindows( [ consentDialog ] );
-			windowManager.openWindow( consentDialog, { consentPreferences: cookieConsent.getPreferences() } );
+			windowManager.openWindow( consentDialog, { consentPreferences: cookieConsent.__getConsentPreferences() } );
 		},
 
 		/**
 		 * Opens the simple cookie preferences dialog.
 		 */
-		openSimpleCookiePreferencesDialog: function () {
+		openSimpleDialog: function () {
+			const cookieConsent = this;
+
 			function SimpleConsentDialog( config ) {
 				SimpleConsentDialog.super.call( this, config );
 			}
-
-			const cookieConsent = this;
 
 			// The consent dialog is a process dialog
 			// @see https://www.mediawiki.org/wiki/OOUI/Windows/Process_Dialogs
@@ -262,14 +219,14 @@ let cookieConsent = ( function ( $ ) {
 					if ( action === 'accept-all' ) {
 						const consentPreferences = {};
 
-						for ( const categoryName of Object.keys( cookieConsent.getCategories() ) ) {
+						for ( const categoryName of Object.keys( cookieConsent.__getConsentCategories() ) ) {
 							consentPreferences[categoryName] = true;
 						}
 
-						updateConsentPreferences( consentPreferences );
+						cookieConsent.__updateConsentPreferences( consentPreferences );
 						windowManager.closeWindow( consentDialog );
 					} else if ( action === 'manage-preferences' ) {
-						cookieConsent.openDetailedCookiePreferencesDialog();
+						cookieConsent.openDetailedDialog();
 						windowManager.closeWindow( consentDialog );
 					} else {
 						// Fallback to parent handler
@@ -283,22 +240,47 @@ let cookieConsent = ( function ( $ ) {
 			}
 
 			windowManager.addWindows( [ consentDialog ] );
-			windowManager.openWindow( consentDialog, { consentPreferences: cookieConsent.getPreferences() } );
-		}
+			windowManager.openWindow( consentDialog, { consentPreferences: cookieConsent.__getConsentPreferences() } );
+		},
+
+		__getCookieName: function( categoryName ) {
+			return 'cookieconsent_consent_' + categoryName;
+		},
+
+		__getConsentCategories: function () {
+			return mw.config.get( 'wgCookieConsentCategories' );
+		},
+
+		__getConsentPreferences: function () {
+			const preferences = {};
+
+			for ( const categoryName of Object.keys( this.__getConsentCategories() ) ) {
+				preferences[categoryName] = this.isConsentGiven( categoryName );
+			}
+
+			return preferences;
+		},
+
+		__updateConsentPreferences: function( consentPreferences ) {
+			for ( let [categoryName, isConsented] of Object.entries( consentPreferences ) ) {
+				const cookieName = this.__getCookieName( categoryName );
+				const cookieValue = isConsented ? 'given' : null;
+				const cookieOptions = isConsented ?
+					{ expires: 60 * 60 * 24 * 365 } : // 1 year
+					{};
+
+				mw.cookie.set( cookieName, cookieValue, cookieOptions );
+			}
+
+			if ( !mw.cookie.get( COOKIECONSENT_DIALOG_DISMISSED_COOKIE_NAME ) ) {
+				// Set the dialog to "dismissed" to disable automatic opening
+				mw.cookie.set( COOKIECONSENT_DIALOG_DISMISSED_COOKIE_NAME, 'dismissed' );
+			}
+
+			// Reload the page
+			location.reload();
+		},
 	};
 } )( jQuery );
 
-window.cookieConsent = cookieConsent;
-
-( function ( $, cookieConsent ) {
-	$.when( $.ready ).then( function () {
-		// Add a click handler for managing cookie preferences
-		$("#manage-cookie-preferences").click(function (e) {
-			cookieConsent.openDetailedCookiePreferencesDialog();
-		});
-
-		if ( !cookieConsent.isDismissed() ) {
-			cookieConsent.openSimpleCookiePreferencesDialog();
-		}
-	} );
-} )( jQuery, window.cookieConsent );
+window.cc = window.cookieConsent = cc;
