@@ -2,7 +2,7 @@
  * JavaScript file for the CookieConsent extension.
  */
 
-let cc = ( function ( $ ) {
+let cookieConsent = ( function ( $ ) {
 	'use strict';
 
 	// Value of the above cookies when consent is given
@@ -253,7 +253,7 @@ let cc = ( function ( $ ) {
 		__updateConsentPreferences: function( consentPreferences ) {
 			for ( let [categoryName, isConsented] of Object.entries( consentPreferences ) ) {
 				const cookieName = this.__getCookieName( categoryName );
-				const cookieValue = isConsented ? 'given' : null;
+				const cookieValue = isConsented ? COOKIECONSENT_CONSENT_GIVEN_COOKIE_VALUE : null;
 				const cookieOptions = isConsented ?
 					{ expires: 60 * 60 * 24 * 365 } : // 1 year
 					{};
@@ -272,4 +272,4 @@ let cc = ( function ( $ ) {
 	};
 } )( jQuery );
 
-window.cc = window.cookieConsent = cc;
+window.cookieConsent = cookieConsent;

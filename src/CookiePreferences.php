@@ -2,7 +2,7 @@
 
 namespace MediaWiki\Extension\CookieConsent;
 
-use RequestContext;
+use IContextSource;
 
 class CookiePreferences {
 	public const COOKIES_PREFERENCE = 'preference';
@@ -10,14 +10,14 @@ class CookiePreferences {
 	public const COOKIES_MARKETING = 'marketing';
 
 	/**
-	 * @var RequestContext
+	 * @var IContextSource
 	 */
-	private RequestContext $requestContext;
+	private IContextSource $requestContext;
 
 	/**
-	 * @param RequestContext $requestContext
+	 * @param IContextSource $requestContext
 	 */
-	public function __construct( RequestContext $requestContext ) {
+	public function __construct( IContextSource $requestContext ) {
 		$this->requestContext = $requestContext;
 	}
 
