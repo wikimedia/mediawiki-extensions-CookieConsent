@@ -3,7 +3,7 @@
   "type": "other",
   "version": "0.1.0",
   "author": [
-    "Marijn van Wezel"
+    "Marijn van Wezel ([https://wikibase-solutions.com Wikibase Solutions])"
   ],
   "url": "https://www.mediawiki.org/wiki/Extension:CookieConsent",
   "descriptionmsg": "cookieconsent-desc",
