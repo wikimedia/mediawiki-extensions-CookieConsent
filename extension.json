@@ -9,7 +9,7 @@
   "descriptionmsg": "cookieconsent-desc",
   "license-name": "GPL-2.0-or-later",
   "requires": {
-    "MediaWiki": ">= 1.39.0",
+    "MediaWiki": ">= 1.35.3",
     "platform": {
       "php": ">= 7.4.3"
     }
