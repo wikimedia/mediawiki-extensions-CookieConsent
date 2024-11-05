@@ -263,7 +263,11 @@ let cookieConsent = ( function ( $ ) {
 
 			if ( !mw.cookie.get( COOKIECONSENT_DIALOG_DISMISSED_COOKIE_NAME ) ) {
 				// Set the dialog to "dismissed" to disable automatic opening
-				mw.cookie.set( COOKIECONSENT_DIALOG_DISMISSED_COOKIE_NAME, 'dismissed' );
+				mw.cookie.set(
+					COOKIECONSENT_DIALOG_DISMISSED_COOKIE_NAME,
+					'dismissed',
+					{ expires: 60 * 60 * 24 * 365 } // 1 year
+				);
 			}
 
 			// Reload the page
