@@ -13,6 +13,25 @@ let cookieConsent = ( function ( $ ) {
 
 	return {
 		/**
+		 * Initializes the consent mode by doing the following:
+		 *
+		 * - Adding a click handler to `#manage-cookie-preferences` to allow users to update their consent preferences.
+		 * - Opening the simple (initial) consent dialog if the dialog has not been dismissed before.
+		 * - Processing any tags (scripts, iframes) if the dialog has been dismissed before.
+		 */
+		init: function() {
+			$("#manage-cookie-preferences").click(function (e) {
+				cookieConsent.openDetailedDialog();
+			});
+
+			if ( !cookieConsent.isDismissed() ) {
+				cookieConsent.openSimpleDialog();
+			} else {
+				cookieConsent.processTags();
+			}
+		},
+
+		/**
 		 * Returns true if consent is given for the given category name, false otherwise.
 		 *
 		 * @param {string} categoryName
@@ -27,6 +46,18 @@ let cookieConsent = ( function ( $ ) {
 		 */
 		isDismissed: function () {
 			return mw.cookie.get( COOKIECONSENT_DIALOG_DISMISSED_COOKIE_NAME );
+		},
+
+		/**
+		 * Processes all script and iframe tags that depend on consent, and fires the 'cookie-consent-tags-processed'
+		 * event on the window after finishing.
+		 */
+		processTags: function () {
+			this.__processScripts();
+			this.__processIframes();
+
+			const event = new CustomEvent('cookie-consent-tags-processed');
+			window.dispatchEvent(event);
 		},
 
 		/**
@@ -285,6 +316,48 @@ let cookieConsent = ( function ( $ ) {
 			// Reload the page
 			location.reload();
 		},
+
+		__enableScript: function ( script ) {
+			const newScript = document.createElement('script');
+			newScript.text = script.text;
+			for ( const attributeName of script.getAttributeNames() ) {
+				newScript.setAttribute( attributeName, script.getAttribute( attributeName ) );
+			}
+
+			newScript.setAttribute('type', 'text/javascript');
+
+			const parent = script.parentElement;
+
+			parent.insertBefore(newScript, script);
+			parent.removeChild(script);
+		},
+
+		__enableIframe: function ( iframe ) {
+			const src = iframe.getAttribute( 'data-src' );
+			iframe.setAttribute( 'src', src );
+		},
+
+		__processScripts: function() {
+			const scripts = document.querySelectorAll( 'script[data-cookieconsent]' );
+			for ( const script of scripts ) {
+				const categories = script.getAttribute( 'data-cookieconsent' ).split(',');
+				const consents = categories.map((category) => cookieConsent.isConsentGiven( category ) );
+				if ( consents.some( ( p ) => p ) ) {
+					this.__enableScript( script );
+				}
+			}
+		},
+
+		__processIframes: function() {
+			const iframes = document.querySelectorAll( 'iframe[data-cookieconsent]' );
+			for ( const iframe of iframes ) {
+				const categories = iframe.getAttribute( 'data-cookieconsent' ).split(',');
+				const consents = categories.map((category) => cookieConsent.isConsentGiven( category ) );
+				if ( consents.some( ( p ) => p ) ) {
+					this.__enableIframe( iframe );
+				}
+			}
+		}
 	};
 } )( jQuery );
 
