@@ -47,7 +47,8 @@ let cookieConsent = ( function ( $ ) {
 			$( document.body ).append( windowManager.$element );
 
 			const consentDialog = new DetailedConsentDialog( {
-				size: 'medium'
+				size: 'medium',
+				classes: ['cookie-consent-dialog', 'cookie-consent-detailed-dialog'],
 			} );
 
 			DetailedConsentDialog.static.name = 'ext.CookieConsent.detailedConsentDialog';
@@ -66,6 +67,13 @@ let cookieConsent = ( function ( $ ) {
 					action: 'cancel',
 					label: mw.message( 'cancel' ).text(),
 					flags: 'safe'
+				} );
+			} else {
+				// Otherwise, add a back button
+				DetailedConsentDialog.static.actions.push( {
+					action: 'back',
+					label: mw.message( 'back' ).text(),
+					flags: ['safe', 'back']
 				} );
 			}
 
@@ -139,6 +147,9 @@ let cookieConsent = ( function ( $ ) {
 						cookieConsent.__updateConsentPreferences( this.getConsentPreferences() );
 					} else if ( action === 'cancel' ) {
 						windowManager.closeWindow( consentDialog );
+					} else if ( action === 'back' ) {
+						cookieConsent.openSimpleDialog();
+						windowManager.closeWindow( consentDialog );
 					} else {
 						// Fallback to parent handler
 						return DetailedConsentDialog.super.prototype.getActionProcess.call( this, action );
@@ -172,7 +183,8 @@ let cookieConsent = ( function ( $ ) {
 			$( document.body ).append( windowManager.$element );
 
 			const consentDialog = new SimpleConsentDialog( {
-				size: 'medium'
+				size: 'small',
+				classes: ['cookie-consent-dialog', 'cookie-consent-simple-dialog'],
 			} );
 
 			SimpleConsentDialog.static.name = 'ext.CookieConsent.simpleConsentDialog';
@@ -180,13 +192,13 @@ let cookieConsent = ( function ( $ ) {
 			SimpleConsentDialog.static.actions = [
 				{
 					action: 'accept-all',
+					icon: 'check',
 					label: mw.message( 'cookieconsent-accept-all' ).text(),
-					flags: [ 'primary', 'progressive' ]
+					flags: [ 'progressive' ]
 				},
 				{
 					action: 'manage-preferences',
 					label: mw.message( 'cookieconsent-manage-preferences-short' ).text(),
-					flags: 'safe'
 				}
 			];
 
@@ -195,7 +207,7 @@ let cookieConsent = ( function ( $ ) {
 
 				this.panel = new OO.ui.PanelLayout( {
 					padded: true,
-					expanded: false
+					expanded: false,
 				} );
 
 				this.panel.$element.append( mw.message( 'cookieconsent-simple-dialog-content' ).parse() );

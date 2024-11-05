@@ -63,6 +63,7 @@
 		"ext.CookieConsent.css"
 	  ],
 	  "messages": [
+		"back",
 		"cancel",
 		"cookieconsent-detailed-dialog-title",
 		"cookieconsent-simple-dialog-title",
