@@ -213,8 +213,12 @@ let cookieConsent = ( function ( $ ) {
 			const windowManager = new OO.ui.WindowManager();
 			$( document.body ).append( windowManager.$element );
 
+			const windowWidth = window.innerWidth
+				|| document.documentElement.clientWidth
+				|| document.body.clientWidth;
+
 			const consentDialog = new SimpleConsentDialog( {
-				size: 'small',
+				size: windowWidth < 720 ? 'small' : 'medium',
 				classes: ['cookie-consent-dialog', 'cookie-consent-simple-dialog'],
 			} );
 
