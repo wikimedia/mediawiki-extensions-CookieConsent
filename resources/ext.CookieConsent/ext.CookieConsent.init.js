@@ -3,7 +3,7 @@
  */
 
 ( function ( $, cookieConsent ) {
-	$.when( $.ready ).then( function () {
+	$.when( $.ready ).then( () => {
 		cookieConsent.init();
 	} );
-} )( jQuery, cookieConsent );
+}( jQuery, cookieConsent ) );

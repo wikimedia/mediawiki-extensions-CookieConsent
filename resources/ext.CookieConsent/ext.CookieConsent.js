@@ -2,7 +2,7 @@
  * JavaScript file for the CookieConsent extension.
  */
 
-let cookieConsent = ( function ( $ ) {
+const cookieConsent = ( function ( $ ) {
 	'use strict';
 
 	// Value of the above cookies when consent is given
@@ -19,10 +19,10 @@ let cookieConsent = ( function ( $ ) {
 		 * - Opening the simple (initial) consent dialog if the dialog has not been dismissed before.
 		 * - Processing any tags (scripts, iframes) if the dialog has been dismissed before.
 		 */
-		init: function() {
-			$("#manage-cookie-preferences").click(function (e) {
+		init: function () {
+			$( '#manage-cookie-preferences' ).on( 'click', ( e ) => {
 				cookieConsent.openDetailedDialog();
-			});
+			} );
 
 			if ( !cookieConsent.isDismissed() ) {
 				cookieConsent.openSimpleDialog();
@@ -35,7 +35,7 @@ let cookieConsent = ( function ( $ ) {
 		 * Returns true if consent is given for the given category name, false otherwise.
 		 *
 		 * @param {string} categoryName
-		 * @returns {boolean}
+		 * @return {boolean}
 		 */
 		isConsentGiven: function ( categoryName ) {
 			return mw.cookie.get( this.__getCookieName( categoryName ) ) === COOKIECONSENT_CONSENT_GIVEN_COOKIE_VALUE;
@@ -56,8 +56,8 @@ let cookieConsent = ( function ( $ ) {
 			this.__processScripts();
 			this.__processIframes();
 
-			const event = new CustomEvent('cookie-consent-tags-processed');
-			window.dispatchEvent(event);
+			const event = new CustomEvent( 'cookie-consent-tags-processed' );
+			window.dispatchEvent( event );
 		},
 
 		/**
@@ -79,7 +79,7 @@ let cookieConsent = ( function ( $ ) {
 
 			const consentDialog = new DetailedConsentDialog( {
 				size: 'medium',
-				classes: ['cookie-consent-dialog', 'cookie-consent-detailed-dialog'],
+				classes: [ 'cookie-consent-dialog', 'cookie-consent-detailed-dialog' ]
 			} );
 
 			DetailedConsentDialog.static.name = 'ext.CookieConsent.detailedConsentDialog';
@@ -89,7 +89,7 @@ let cookieConsent = ( function ( $ ) {
 					action: 'save-preferences',
 					label: mw.message( 'cookieconsent-save-preferences' ).text(),
 					flags: [ 'primary', 'progressive' ]
-				},
+				}
 			];
 
 			if ( mw.cookie.get( COOKIECONSENT_DIALOG_DISMISSED_COOKIE_NAME ) ) {
@@ -104,7 +104,7 @@ let cookieConsent = ( function ( $ ) {
 				DetailedConsentDialog.static.actions.push( {
 					action: 'back',
 					label: mw.message( 'back' ).text(),
-					flags: ['safe', 'back']
+					flags: [ 'safe', 'back' ]
 				} );
 			}
 
@@ -116,19 +116,19 @@ let cookieConsent = ( function ( $ ) {
 					label: mw.message( 'cookieconsent-category-name-strictly-necessary' ).text(),
 					align: 'inline',
 					help: mw.message( 'cookieconsent-category-desc-strictly-necessary' ).text()
-				});
+				} );
 
 				// Other categories
 				this.preferenceCheckboxes = {};
-				this.preferenceFieldsetItems = [necessaryCookiesFieldsetItem];
+				this.preferenceFieldsetItems = [ necessaryCookiesFieldsetItem ];
 
 				for ( const [ categoryName, category ] of Object.entries( cookieConsent.__getConsentCategories() ) ) {
-					this.preferenceCheckboxes[categoryName] = new OO.ui.CheckboxInputWidget();
-					this.preferenceFieldsetItems.push(new OO.ui.FieldLayout( this.preferenceCheckboxes[categoryName], {
+					this.preferenceCheckboxes[ categoryName ] = new OO.ui.CheckboxInputWidget();
+					this.preferenceFieldsetItems.push( new OO.ui.FieldLayout( this.preferenceCheckboxes[ categoryName ], {
 						label: category.namemsg ? mw.message( category.namemsg ).text() : category.name,
 						align: 'inline',
 						help: category.descriptionmsg ? mw.message( category.descriptionmsg ).text() : category.description
-					}));
+					} ) );
 				}
 
 				this.panel = new OO.ui.PanelLayout( {
@@ -144,33 +144,33 @@ let cookieConsent = ( function ( $ ) {
 				this.panel.$element.append( mw.message( 'cookieconsent-detailed-dialog-outro' ).parse() );
 
 				this.$body.append( this.panel.$element );
-			}
+			};
 
 			// Let the dialog know which consent preferences have (previously) been given, so that the checkboxes can be
 			// (un)checked accordingly
 			DetailedConsentDialog.prototype.setConsentPreferences = function ( consentPreferences ) {
 				for ( const categoryName of Object.keys( cookieConsent.__getConsentCategories() ) ) {
-					this.preferenceCheckboxes[categoryName].setSelected( consentPreferences[categoryName] );
+					this.preferenceCheckboxes[ categoryName ].setSelected( consentPreferences[ categoryName ] );
 				}
-			}
+			};
 
 			// Get the current consent preferences as visible in the dialog
 			DetailedConsentDialog.prototype.getConsentPreferences = function () {
 				const consentPreferences = {};
 
 				for ( const categoryName of Object.keys( cookieConsent.__getConsentCategories() ) ) {
-					consentPreferences[categoryName] = this.preferenceCheckboxes[categoryName].isSelected();
+					consentPreferences[ categoryName ] = this.preferenceCheckboxes[ categoryName ].isSelected();
 				}
 
 				return consentPreferences;
-			}
+			};
 
 			// The setup process takes data inserted during the initialisation of the window, and updates the presentation
 			// accordingly.
 			DetailedConsentDialog.prototype.getSetupProcess = function ( data ) {
 				return DetailedConsentDialog.super.prototype.getSetupProcess.call( this, data )
 					.next( () => this.setConsentPreferences( data.consentPreferences ), this );
-			}
+			};
 
 			DetailedConsentDialog.prototype.getActionProcess = function ( action ) {
 				return new OO.ui.Process( function () {
@@ -186,11 +186,11 @@ let cookieConsent = ( function ( $ ) {
 						return DetailedConsentDialog.super.prototype.getActionProcess.call( this, action );
 					}
 				}, this );
-			}
+			};
 
 			DetailedConsentDialog.prototype.getBodyHeight = function () {
 				return this.panel.$element.outerHeight( true );
-			}
+			};
 
 			windowManager.addWindows( [ consentDialog ] );
 			windowManager.openWindow( consentDialog, { consentPreferences: cookieConsent.__getConsentPreferences() } );
@@ -219,7 +219,7 @@ let cookieConsent = ( function ( $ ) {
 
 			const consentDialog = new SimpleConsentDialog( {
 				size: windowWidth < 720 ? 'small' : 'medium',
-				classes: ['cookie-consent-dialog', 'cookie-consent-simple-dialog'],
+				classes: [ 'cookie-consent-dialog', 'cookie-consent-simple-dialog' ]
 			} );
 
 			SimpleConsentDialog.static.name = 'ext.CookieConsent.simpleConsentDialog';
@@ -233,7 +233,7 @@ let cookieConsent = ( function ( $ ) {
 				},
 				{
 					action: 'manage-preferences',
-					label: mw.message( 'cookieconsent-manage-preferences-short' ).text(),
+					label: mw.message( 'cookieconsent-manage-preferences-short' ).text()
 				}
 			];
 
@@ -242,13 +242,13 @@ let cookieConsent = ( function ( $ ) {
 
 				this.panel = new OO.ui.PanelLayout( {
 					padded: true,
-					expanded: false,
+					expanded: false
 				} );
 
 				this.panel.$element.append( mw.message( 'cookieconsent-simple-dialog-content' ).parse() );
 
 				this.$body.append( this.panel.$element );
-			}
+			};
 
 			SimpleConsentDialog.prototype.getActionProcess = function ( action ) {
 				return new OO.ui.Process( function () {
@@ -256,7 +256,7 @@ let cookieConsent = ( function ( $ ) {
 						const consentPreferences = {};
 
 						for ( const categoryName of Object.keys( cookieConsent.__getConsentCategories() ) ) {
-							consentPreferences[categoryName] = true;
+							consentPreferences[ categoryName ] = true;
 						}
 
 						cookieConsent.__updateConsentPreferences( consentPreferences );
@@ -269,17 +269,17 @@ let cookieConsent = ( function ( $ ) {
 						return SimpleConsentDialog.super.prototype.getActionProcess.call( this, action );
 					}
 				}, this );
-			}
+			};
 
 			SimpleConsentDialog.prototype.getBodyHeight = function () {
 				return this.panel.$element.outerHeight( true );
-			}
+			};
 
 			windowManager.addWindows( [ consentDialog ] );
 			windowManager.openWindow( consentDialog, { consentPreferences: cookieConsent.__getConsentPreferences() } );
 		},
 
-		__getCookieName: function( categoryName ) {
+		__getCookieName: function ( categoryName ) {
 			return 'cookieconsent_consent_' + categoryName;
 		},
 
@@ -291,14 +291,14 @@ let cookieConsent = ( function ( $ ) {
 			const preferences = {};
 
 			for ( const categoryName of Object.keys( this.__getConsentCategories() ) ) {
-				preferences[categoryName] = this.isConsentGiven( categoryName );
+				preferences[ categoryName ] = this.isConsentGiven( categoryName );
 			}
 
 			return preferences;
 		},
 
-		__updateConsentPreferences: function( consentPreferences ) {
-			for ( let [categoryName, isConsented] of Object.entries( consentPreferences ) ) {
+		__updateConsentPreferences: function ( consentPreferences ) {
+			for ( const [ categoryName, isConsented ] of Object.entries( consentPreferences ) ) {
 				const cookieName = this.__getCookieName( categoryName );
 				const cookieValue = isConsented ? COOKIECONSENT_CONSENT_GIVEN_COOKIE_VALUE : null;
 				const cookieOptions = isConsented ?
@@ -322,18 +322,18 @@ let cookieConsent = ( function ( $ ) {
 		},
 
 		__enableScript: function ( script ) {
-			const newScript = document.createElement('script');
+			const newScript = document.createElement( 'script' );
 			newScript.text = script.text;
 			for ( const attributeName of script.getAttributeNames() ) {
 				newScript.setAttribute( attributeName, script.getAttribute( attributeName ) );
 			}
 
-			newScript.setAttribute('type', 'text/javascript');
+			newScript.setAttribute( 'type', 'text/javascript' );
 
 			const parent = script.parentElement;
 
-			parent.insertBefore(newScript, script);
-			parent.removeChild(script);
+			parent.insertBefore( newScript, script );
+			parent.removeChild( script );
 		},
 
 		__enableIframe: function ( iframe ) {
@@ -341,28 +341,28 @@ let cookieConsent = ( function ( $ ) {
 			iframe.setAttribute( 'src', src );
 		},
 
-		__processScripts: function() {
+		__processScripts: function () {
 			const scripts = document.querySelectorAll( 'script[data-cookieconsent]' );
 			for ( const script of scripts ) {
-				const categories = script.getAttribute( 'data-cookieconsent' ).split(',');
-				const consents = categories.map((category) => cookieConsent.isConsentGiven( category ) );
+				const categories = script.getAttribute( 'data-cookieconsent' ).split( ',' );
+				const consents = categories.map( ( category ) => cookieConsent.isConsentGiven( category ) );
 				if ( consents.some( ( p ) => p ) ) {
 					this.__enableScript( script );
 				}
 			}
 		},
 
-		__processIframes: function() {
+		__processIframes: function () {
 			const iframes = document.querySelectorAll( 'iframe[data-cookieconsent]' );
 			for ( const iframe of iframes ) {
-				const categories = iframe.getAttribute( 'data-cookieconsent' ).split(',');
-				const consents = categories.map((category) => cookieConsent.isConsentGiven( category ) );
+				const categories = iframe.getAttribute( 'data-cookieconsent' ).split( ',' );
+				const consents = categories.map( ( category ) => cookieConsent.isConsentGiven( category ) );
 				if ( consents.some( ( p ) => p ) ) {
 					this.__enableIframe( iframe );
 				}
 			}
 		}
 	};
-} )( jQuery );
+}( jQuery ) );
 
 window.cookieConsent = cookieConsent;

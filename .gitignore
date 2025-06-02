@@ -8,6 +8,7 @@ node_modules/
 
 .DS_Store
 .eslintcache
+.stylelintcache
 .api-testing.config.json
 .phpunit.result.cache
 
