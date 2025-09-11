@@ -96,14 +96,14 @@ const cookieConsent = ( function ( $ ) {
 				// If the dialog has been dismissed before, add a "Cancel" button
 				DetailedConsentDialog.static.actions.push( {
 					action: 'cancel',
-					label: mw.message( 'cancel' ).text(),
+					label: mw.message( 'cookieconsent-cancel' ).text(),
 					flags: 'safe'
 				} );
 			} else {
 				// Otherwise, add a back button
 				DetailedConsentDialog.static.actions.push( {
 					action: 'back',
-					label: mw.message( 'back' ).text(),
+					label: mw.message( 'cookieconsent-back' ).text(),
 					flags: [ 'safe', 'back' ]
 				} );
 			}

@@ -63,13 +63,13 @@
 				"ext.CookieConsent.css"
 			],
 			"messages": [
-				"back",
-				"cancel",
 				"cookieconsent-detailed-dialog-title",
 				"cookieconsent-simple-dialog-title",
 				"cookieconsent-manage-preferences",
 				"cookieconsent-manage-preferences-short",
 				"cookieconsent-save-preferences",
+				"cookieconsent-back",
+				"cookieconsent-cancel",
 				"cookieconsent-accept-all",
 				"cookieconsent-category-name-strictly-necessary",
 				"cookieconsent-category-name-preference",

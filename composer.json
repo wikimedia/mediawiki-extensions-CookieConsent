@@ -31,7 +31,11 @@
 		"phpcs": "phpcs -p -s",
 		"minusx": "minus-x check .",
 		"phpunit": "php ../../tests/phpunit/phpunit.php -c phpunit.xml.dist",
-		"test": "composer phpunit tests/"
+		"test": [
+			"@lint",
+			"@phpcs",
+			"@minusx"
+		]
 	},
 	"config": {
 		"allow-plugins": {

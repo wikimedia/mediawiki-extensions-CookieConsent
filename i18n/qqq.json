@@ -12,6 +12,8 @@
 	"cookieconsent-simple-dialog-title": "Title shown in the simple initial dialog for managing cookie consent.",
 	"cookieconsent-detailed-dialog-title": "Title shown in the detailed dialog for managing cookie consent.",
 	"cookieconsent-save-preferences": "Button to save the preferences.",
+	"cookieconsent-back": "Button to go back.",
+	"cookieconsent-cancel": "Button to go cancel.",
 	"cookieconsent-category-name-strictly-necessary": "Name of the 'strictly-necessary' cookie category as shown to the user.",
 	"cookieconsent-category-name-preference": "Name of the 'preference' cookie category as shown to the user.",
 	"cookieconsent-category-name-statistics": "Name of the 'statistics' cookie category as shown to the user.",
