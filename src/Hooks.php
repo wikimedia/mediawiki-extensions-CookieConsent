@@ -16,7 +16,6 @@ class Hooks implements BeforePageDisplayHook, ResourceLoaderGetConfigVarsHook, S
 		$modules = [ 'ext.CookieConsent' ];
 
 		$out->addModules( $modules );
-		$out->enableOOUI();
 	}
 
 	/**

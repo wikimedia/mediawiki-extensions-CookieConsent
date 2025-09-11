@@ -1,0 +1,8 @@
+[
+	{
+		"resourceModule": "ext.CookieConsent",
+		"maxSize": null,
+		"@note": "This module loads various OOUI modules on page load.",
+		"ignoreDependencies": true
+	}
+]
