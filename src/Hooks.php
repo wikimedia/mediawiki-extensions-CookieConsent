@@ -31,7 +31,14 @@ class Hooks implements BeforePageDisplayHook, ResourceLoaderGetConfigVarsHook, S
 	 */
 	public function onSkinAddFooterLinks( Skin $skin, string $key, array &$footerItems ) {
 		if ( $key === 'places' ) {
-			$footerItems['manage-cookie-preferences'] = \Html::rawElement( 'a', [
+			if ( class_exists( 'MediaWiki\\Html\\Html' ) ) {
+				// MW 1.40+
+				$htmlClass = \MediaWiki\Html\Html::class;
+			} else {
+				$htmlClass = \Html::class;
+			}
+
+			$footerItems['manage-cookie-preferences'] = $htmlClass::rawElement( 'a', [
 				'href' => '#',
 				'id' => 'manage-cookie-preferences'
 			], $skin->msg( 'cookieconsent-manage-preferences' ) );
