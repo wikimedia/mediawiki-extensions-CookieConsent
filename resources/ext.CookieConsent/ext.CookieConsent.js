@@ -337,14 +337,14 @@ const cookieConsent = ( function ( $ ) {
 		},
 
 		__enableIframe: function ( iframe ) {
-			const src = iframe.getAttribute( 'data-src' );
+			const src = iframe.getAttribute( 'data-mw-src' );
 			iframe.setAttribute( 'src', src );
 		},
 
 		__processScripts: function () {
-			const scripts = document.querySelectorAll( 'script[data-cookieconsent]' );
+			const scripts = document.querySelectorAll( 'script[data-mw-cookieconsent]' );
 			for ( const script of scripts ) {
-				const categories = script.getAttribute( 'data-cookieconsent' ).split( ',' );
+				const categories = script.getAttribute( 'data-mw-cookieconsent' ).split( ',' );
 				const consents = categories.map( ( category ) => cookieConsent.isConsentGiven( category ) );
 				if ( consents.some( ( p ) => p ) ) {
 					this.__enableScript( script );
@@ -353,9 +353,9 @@ const cookieConsent = ( function ( $ ) {
 		},
 
 		__processIframes: function () {
-			const iframes = document.querySelectorAll( 'iframe[data-cookieconsent]' );
+			const iframes = document.querySelectorAll( 'iframe[data-mw-cookieconsent]' );
 			for ( const iframe of iframes ) {
-				const categories = iframe.getAttribute( 'data-cookieconsent' ).split( ',' );
+				const categories = iframe.getAttribute( 'data-mw-cookieconsent' ).split( ',' );
 				const consents = categories.map( ( category ) => cookieConsent.isConsentGiven( category ) );
 				if ( consents.some( ( p ) => p ) ) {
 					this.__enableIframe( iframe );
