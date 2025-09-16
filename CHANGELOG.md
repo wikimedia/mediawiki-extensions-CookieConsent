@@ -9,6 +9,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [unreleased]
 
+## [2.0.0] - 2025-09-16
+
+### Changed
+
+- BREAKING: Renamed the `data-src` attribute to `data-mw-src` for `iframe` elements
+  ([T404475](https://phabricator.wikimedia.org/T404475)).
+- BREAKING: Renamed the `data-cookieconsent` attribute to `data-mw-cookieconsent` for `iframe` and `script` elements
+  ([T404475](https://phabricator.wikimedia.org/T404475)).
+
 ## [1.0.0] - 2025-08-26
 
 ### Changed
@@ -36,7 +45,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Detailed consent dialog for managing consent preferences.
 - Support for disabling `iframe` and `script` elements until cookies are accepted.
 
-[unreleased]: https://github.com/wikimedia/mediawiki-extensions-CookieConsent/compare/1.0.0...HEAD
+[unreleased]: https://github.com/wikimedia/mediawiki-extensions-CookieConsent/compare/2.0.0...HEAD
+[2.0.0]: https://github.com/wikimedia/mediawiki-extensions-CookieConsent/compare/1.0.0...2.0.0
 [1.0.0]: https://github.com/wikimedia/mediawiki-extensions-CookieConsent/compare/0.2.0...1.0.0
 [0.2.0]: https://github.com/wikimedia/mediawiki-extensions-CookieConsent/compare/0.1.0...0.2.0
 [0.1.0]: https://github.com/wikimedia/mediawiki-extensions-CookieConsent/releases/tag/0.1.0
