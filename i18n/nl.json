@@ -13,6 +13,8 @@
 	"cookieconsent-simple-dialog-title": "Cookies",
 	"cookieconsent-detailed-dialog-title": "Cookievoorkeuren",
 	"cookieconsent-save-preferences": "Opslaan",
+	"cookieconsent-back": "Terug",
+	"cookieconsent-cancel": "Annuleren",
 	"cookieconsent-category-name-strictly-necessary": "Strikt noodzakelijke cookies",
 	"cookieconsent-category-name-preference": "Voorkeurscookies",
 	"cookieconsent-category-name-statistics": "Analytische cookies",
