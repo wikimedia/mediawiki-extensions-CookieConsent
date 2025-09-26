@@ -1,5 +1,8 @@
 /**
  * JavaScript file for the CookieConsent extension.
+ *
+ * @param $
+ * @param cookieConsent
  */
 
 ( function ( $, cookieConsent ) {
