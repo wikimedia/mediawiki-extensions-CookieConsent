@@ -2,6 +2,7 @@
 
 namespace MediaWiki\Extension\CookieConsent;
 
+use MediaWiki\Extension\CookieConsent\Geolocation\Geolocator;
 use MediaWiki\MediaWikiServices;
 use Wikimedia\Services\ServiceContainer;
 
@@ -29,6 +30,26 @@ final class CookieConsentServices {
 	 */
 	public static function getCookiePreferences( ?ServiceContainer $services = null ): CookiePreferences {
 		return self::getService( "CookiePreferences", $services );
+	}
+
+	/**
+	 * Get the Decisions service.
+	 *
+	 * @param ServiceContainer|null $services
+	 * @return Decisions
+	 */
+	public static function getDecisions( ?ServiceContainer $services = null ): Decisions {
+		return self::getService( "Decisions", $services );
+	}
+
+	/**
+	 * Get the Geolocator service.
+	 *
+	 * @param ServiceContainer|null $services
+	 * @return Geolocator
+	 */
+	public static function getGeolocator( ?ServiceContainer $services = null ): Geolocator {
+		return self::getService( "Geolocation.Geolocator", $services );
 	}
 
 	/**

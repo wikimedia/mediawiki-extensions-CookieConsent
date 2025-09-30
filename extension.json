@@ -39,11 +39,73 @@
 				}
 			},
 			"merge_strategy": "provide_default"
+		},
+		"CookieConsentEnableGeolocation": {
+			"value": false
+		},
+		"CookieConsentEnabledRegions": {
+			"value": [
+				"EU",
+				"AD",
+				"AL",
+				"AT",
+				"BA",
+				"BE",
+				"BG",
+				"BY",
+				"CH",
+				"CS",
+				"CZ",
+				"DE",
+				"DK",
+				"EE",
+				"ES",
+				"FI",
+				"FO",
+				"FR",
+				"FX",
+				"GB",
+				"GI",
+				"GR",
+				"HR",
+				"HU",
+				"IE",
+				"IS",
+				"IT",
+				"LI",
+				"LT",
+				"LU",
+				"LV",
+				"MC",
+				"MD",
+				"MK",
+				"MT",
+				"NL",
+				"NO",
+				"PL",
+				"PT",
+				"RO",
+				"SE",
+				"SI",
+				"SJ",
+				"SK",
+				"SM",
+				"UA",
+				"VA"
+			],
+			"merge_strategy": "provide_default"
+		},
+		"CookieConsentGeolocationEndpoint": {
+			"value": "http://ip-api.com/json/{$IP}"
+		},
+		"CookieConsentGeolocationField": {
+			"value": "countryCode"
 		}
 	},
 	"HookHandlers": {
 		"main": {
-			"class": "MediaWiki\\Extension\\CookieConsent\\Hooks"
+			"class": "MediaWiki\\Extension\\CookieConsent\\Hooks",
+			"services": [ "CookieConsent.Decisions" ]
 		}
 	},
 	"Hooks": {

@@ -9,6 +9,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [unreleased]
 
+### Added
+
+- Add region detection to allow administrators of a wiki to only enable the cookie warning for certain countries ([T406031](https://phabricator.wikimedia.org/T406031)).
+- Add `$wgCookieConsentEnableGeolocation` to enable or disable region detection.
+- Add `$wgCookieConsentEnabledRegions` to configure for which countries/regions the extension should be enabled.
+- Add `$wgCookieConsentGeolocationEndpoint` and `$wgCookieConsentGeolocationField` to configure which API to use for geolocation.
+
 ## [2.0.0] - 2025-09-16
 
 ### Added

@@ -10,12 +10,24 @@ use Skin;
 
 class Hooks implements BeforePageDisplayHook, ResourceLoaderGetConfigVarsHook, SkinAddFooterLinksHook {
 	/**
+	 * @var Decisions
+	 */
+	private Decisions $decisions;
+
+	/**
+	 * @param Decisions $decisions
+	 */
+	public function __construct( Decisions $decisions ) {
+		$this->decisions = $decisions;
+	}
+
+	/**
 	 * @inheritDoc
 	 */
 	public function onBeforePageDisplay( $out, $skin ): void {
-		$modules = [ 'ext.CookieConsent' ];
-
-		$out->addModules( $modules );
+		if ( $this->decisions->shouldEnable( $out->getContext() ) ) {
+			$out->addModules( [ 'ext.CookieConsent' ] );
+		}
 	}
 
 	/**
@@ -29,7 +41,7 @@ class Hooks implements BeforePageDisplayHook, ResourceLoaderGetConfigVarsHook, S
 	 * @inheritDoc
 	 */
 	public function onSkinAddFooterLinks( Skin $skin, string $key, array &$footerItems ) {
-		if ( $key === 'places' ) {
+		if ( $key === 'places' && $this->decisions->shouldEnable( $skin->getContext() ) ) {
 			if ( class_exists( 'MediaWiki\\Html\\Html' ) ) {
 				// MW 1.40+
 				$htmlClass = \MediaWiki\Html\Html::class;
