@@ -9,6 +9,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [unreleased]
 
+## [2.1.0] - 2025-11-25
+
 ### Added
 
 - Add region detection to allow administrators of a wiki to only enable the cookie warning for certain countries ([T406031](https://phabricator.wikimedia.org/T406031)).
@@ -61,7 +63,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Detailed consent dialog for managing consent preferences.
 - Support for disabling `iframe` and `script` elements until cookies are accepted.
 
-[unreleased]: https://github.com/wikimedia/mediawiki-extensions-CookieConsent/compare/v2.0.0...HEAD
+[unreleased]: https://github.com/wikimedia/mediawiki-extensions-CookieConsent/compare/v2.1.0...HEAD
+[2.1.0]: https://github.com/wikimedia/mediawiki-extensions-CookieConsent/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/wikimedia/mediawiki-extensions-CookieConsent/compare/v1.0.0...v2.0.0
 [1.0.0]: https://github.com/wikimedia/mediawiki-extensions-CookieConsent/compare/v0.2.0...v1.0.0
 [0.2.0]: https://github.com/wikimedia/mediawiki-extensions-CookieConsent/compare/v0.1.0...v0.2.0
