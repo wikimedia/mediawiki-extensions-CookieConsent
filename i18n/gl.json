@@ -1,0 +1,26 @@
+{
+	"@metadata": {
+		"authors": [
+			"Toliño"
+		]
+	},
+	"cookieconsent-desc": "Aviso de cookies para MediaWiki conforme co RXPD",
+	"cookieconsent-extensionname": "Consentimento de cookies",
+	"cookieconsent-manage-preferences": "Xestionar as preferencias de cookies",
+	"cookieconsent-manage-preferences-short": "Xestionar as preferencias",
+	"cookieconsent-accept-all": "Aceptar todas as cookies",
+	"cookieconsent-simple-dialog-title": "Cookies",
+	"cookieconsent-detailed-dialog-title": "Preferencias de cookies",
+	"cookieconsent-save-preferences": "Gardar",
+	"cookieconsent-category-name-strictly-necessary": "Cookies estritamente necesarias",
+	"cookieconsent-category-name-preference": "Cookies de preferencias",
+	"cookieconsent-category-name-statistics": "Cookies analíticas",
+	"cookieconsent-category-name-marketing": "Cookies publicitarias",
+	"cookieconsent-category-desc-strictly-necessary": "Estas cookies son esenciais para que poidas navegar polo sitio web e usar as súas funcións, como acceder a áreas seguras do sitio. As túas preferencias de cookies tamén entran nesta categoría.",
+	"cookieconsent-category-desc-preference": "Tamén coñecidas como «cookies de funcionalidade», estas cookies permiten que o sitio web lembre as eleccións que fixeches no pasado, como a lingua ou o teu nome de usuario e contrasinal para que poidas iniciar sesión automaticamente.",
+	"cookieconsent-category-desc-statistics": "Tamén coñecidas como «cookies de rendemento», estas cookies recompilan información sobre como usas o sitio web, como as páxinas que visitaches e as ligazóns que clicaches. Esta información non pode usarse para identificarte. O seu único propósito é mellorar as funcións do sitio web.",
+	"cookieconsent-category-desc-marketing": "Estas cookies rastrexan a túa actividade en liña para axudar aos anunciantes a ofrecer publicidade máis relevante ou para limitar cantas veces ves un anuncio. Estas cookies poden compartir esa información con outras organizacións ou anunciantes.",
+	"cookieconsent-detailed-dialog-intro": "<p>Usamos cookies (e tecnoloxías similares) para personalizarmos o contido, mellorarmos o sitio web e analizarmos o tráfico.</p><p>Con estas cookies, nós e os nosos socios recompilamos información sobre ti e rastrexamos o teu comportamento en Internet dentro e posiblemente tamén fóra do noso sitio web. Deste xeito, construímos o teu perfil persoal. Con isto, adaptamos o noso sitio web e a comunicación ás túas preferencias. Tamén podemos mostrar anuncios dirixidos baseados no teu comportamento recente en Internet. Pode ler máis sobre isto na nosa [[privacy policy|política de protección de datos]].</p><p>Ao actualizares as preferencias de cookies recargarase a páxina.</p>",
+	"cookieconsent-detailed-dialog-outro": "<p>As túas preferencias de cookies almacenaranse durante un ano. Se queres cambiar as túas preferencias de cookies nalgún momento, podes usar a ligazón que aparece no pé de páxina do sitio web. As túas preferencias de cookies actualizadas almacenaranse de novo durante un ano.</p>",
+	"cookieconsent-simple-dialog-content": "<p>Usamos cookies (e tecnoloxías similares) para personalizarmos o contido, mellorarmos o sitio web e analizarmos o tráfico.</p><p>Con estas cookies, nós e os nosos socios recompilamos información sobre ti e rastrexamos o teu comportamento en Internet dentro e posiblemente tamén fóra do noso sitio web. Deste xeito, construímos o teu perfil persoal. Con isto, adaptamos o noso sitio web e a comunicación ás túas preferencias. Tamén podemos mostrar anuncios dirixidos baseados no teu comportamento recente en Internet. Pode ler máis sobre isto na nosa [[privacy policy|política de protección de datos]].</p><p>Se queres xestionar as túas preferencias de cookies, fai clic en «<b>Xestionar as preferencias</b>». Ao premeres en «<b>Aceptar todas</b>», aceptas o uso de todas as cookies. Podes modificar ou retirar o teu consentimento en calquera momento.</p>"
+}
