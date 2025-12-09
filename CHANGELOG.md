@@ -9,6 +9,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [unreleased]
 
+### Added
+
+- Add `$wgCookieConsentGeolocationParameters` to configure additional query parameters to pass to the geolocation API.
+
+### Changed
+
+- Changed the default geolocation API endpoint to `pro.ip-api.com` to ensure that users do not accidentally use the API
+  on a commercial website without a subscription. Using the free API (`ip-api.com`) is still supported for non-commercial websites.
+
 ## [2.1.0] - 2025-11-25
 
 ### Added

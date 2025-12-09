@@ -3,7 +3,9 @@
 namespace MediaWiki\Extension\CookieConsent\Geolocation;
 
 use MediaWiki\Http\HttpRequestFactory;
+// FIXME: Change to Wikimedia\ObjectCache\WANObjectCache once we drop support for MediaWiki 1.39
 use WANObjectCache;
+// FIXME: Change to MediaWiki\Request\WebRequest once we drop support for MediaWiki 1.39
 use WebRequest;
 use Wikimedia\IPUtils;
 
@@ -19,6 +21,11 @@ class HttpGeolocator implements Geolocator {
 	private ?string $geolocationEndpoint;
 
 	/**
+	 * @var array|null The query parameters to pass to the geolocation endpoint
+	 */
+	private ?array $geolocationParameters;
+
+	/**
 	 * @var string|null The field to use for geolocation
 	 */
 	private ?string $geolocationField;
@@ -29,20 +36,22 @@ class HttpGeolocator implements Geolocator {
 	private HttpRequestFactory $requestFactory;
 
 	/**
-	 * @var WANObjectCache The cache to use.
+	 * @var mixed The cache to use.
 	 */
-	private WANObjectCache $objectCache;
+	private mixed $objectCache;
 
 	/**
 	 * @param string|null $geolocationEndpoint The API endpoint to use for geolocation
 	 */
 	public function __construct(
 		?string $geolocationEndpoint,
+		?array $geolocationParameters,
 		?string $geolocationField,
 		HttpRequestFactory $requestFactory,
 		WANObjectCache $objectCache,
 	) {
 		$this->geolocationEndpoint = $geolocationEndpoint;
+		$this->geolocationParameters = $geolocationParameters;
 		$this->geolocationField = $geolocationField;
 		$this->requestFactory = $requestFactory;
 		$this->objectCache = $objectCache;
@@ -62,7 +71,7 @@ class HttpGeolocator implements Geolocator {
 			return null;
 		}
 
-		$cacheKey = $this->objectCache->makeGlobalKey( __CLASS__, self::CACHE_KEY . ':' . $requestIP );
+		$cacheKey = $this->buildCacheKey( $requestIP );
 		$cachedResult = $this->objectCache->get( $cacheKey );
 
 		if ( is_string( $cachedResult ) ) {
@@ -77,7 +86,11 @@ class HttpGeolocator implements Geolocator {
 			return null;
 		}
 
-		$url = str_replace( '{$IP}', $requestIP, $this->geolocationEndpoint );
+		$requestParams = $this->geolocationParameters ?? [];
+		$baseUrl = str_replace( '{$IP}', $requestIP, $this->geolocationEndpoint );
+
+		$url = wfAppendQuery( $baseUrl, $requestParams );
+
 		$response = $this->requestFactory->get( $url, [ 'timeout' => '1' ], __METHOD__ );
 
 		if ( !$response ) {
@@ -100,5 +113,25 @@ class HttpGeolocator implements Geolocator {
 		$this->objectCache->set( $cacheKey, $geolocation, 14 * 86400 );
 
 		return $geolocation;
+	}
+
+	/**
+	 * Builds a cache key for the specified IP-address.
+	 *
+	 * @param string $requestIP
+	 * @return string
+	 */
+	private function buildCacheKey( string $requestIP ): string {
+		$parts = [
+			self::CACHE_KEY,
+			$requestIP,
+			$this->geolocationEndpoint,
+			$this->geolocationField,
+			json_encode( $this->geolocationParameters ?? [] )
+		];
+
+		$cacheKey = implode( ':', $parts );
+
+		return $this->objectCache->makeGlobalKey( __CLASS__, $cacheKey );
 	}
 }

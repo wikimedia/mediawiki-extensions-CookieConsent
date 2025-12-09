@@ -9,7 +9,7 @@
 	"descriptionmsg": "cookieconsent-desc",
 	"license-name": "GPL-2.0-or-later",
 	"requires": {
-		"MediaWiki": ">= 1.35.3",
+		"MediaWiki": ">= 1.39.0",
 		"platform": {
 			"php": ">= 7.4.3"
 		}
@@ -96,7 +96,11 @@
 			"merge_strategy": "provide_default"
 		},
 		"CookieConsentGeolocationEndpoint": {
-			"value": "http://ip-api.com/json/{$IP}"
+			"value": "https://pro.ip-api.com/json/{$IP}"
+		},
+		"CookieConsentGeolocationParameters": {
+			"value": [],
+			"merge_strategy": "provide_default"
 		},
 		"CookieConsentGeolocationField": {
 			"value": "countryCode"

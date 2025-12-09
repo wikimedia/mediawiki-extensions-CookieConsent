@@ -25,7 +25,7 @@ class Decisions {
 	 * @return bool True if the extension should be enabled, false otherwise.
 	 */
 	public function shouldEnable( IContextSource $context ): bool {
-		return $this->inConfiguredRegion( $context );
+		return ( !$this->config->get( 'CookieConsentEnableGeolocation' ) || $this->inConfiguredRegion( $context ) );
 	}
 
 	/**
@@ -35,10 +35,6 @@ class Decisions {
 	 * @return bool
 	 */
 	private function inConfiguredRegion( IContextSource $context ): bool {
-		if ( !$this->config->get( 'CookieConsentEnableGeolocation' ) ) {
-			return true;
-		}
-
 		$geolocation = $this->geolocator->geolocate( $context->getRequest() );
 
 		if ( $geolocation === null ) {

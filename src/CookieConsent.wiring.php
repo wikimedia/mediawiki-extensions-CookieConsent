@@ -34,6 +34,7 @@ return [
 
 		return new HttpGeolocator(
 			$mainConfig->get( 'CookieConsentGeolocationEndpoint' ),
+			$mainConfig->get( 'CookieConsentGeolocationParameters' ),
 			$mainConfig->get( 'CookieConsentGeolocationField' ),
 			$services->getHttpRequestFactory(),
 			$services->getMainWANObjectCache(),
