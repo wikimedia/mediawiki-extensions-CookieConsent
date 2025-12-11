@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"Yupik"
+		]
+	},
+	"cookieconsent-simple-dialog-title": "Evästeet",
+	"cookieconsent-save-preferences": "Tallenna",
+	"cookieconsent-back": "Takaisin",
+	"cookieconsent-cancel": "Peruuta"
+}
