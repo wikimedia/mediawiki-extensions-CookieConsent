@@ -1,0 +1,27 @@
+{
+	"@metadata": {
+		"authors": [
+			"Kly"
+		]
+	},
+	"cookieconsent-desc": "MediaWiki 的一般資料保護規則（GDPR）合規 Cookie 通知",
+	"cookieconsent-manage-preferences": "管理 cookie 偏好設定",
+	"cookieconsent-manage-preferences-short": "管理偏好設定",
+	"cookieconsent-accept-all": "接受所有 cookie",
+	"cookieconsent-simple-dialog-title": "Cookies",
+	"cookieconsent-detailed-dialog-title": "Cookie 偏好設定",
+	"cookieconsent-save-preferences": "儲存",
+	"cookieconsent-back": "返回",
+	"cookieconsent-cancel": "取消",
+	"cookieconsent-category-name-strictly-necessary": "絕對必要的 cookie",
+	"cookieconsent-category-name-preference": "偏好的 cookie",
+	"cookieconsent-category-name-statistics": "分析型 cookie",
+	"cookieconsent-category-name-marketing": "廣告 cookie",
+	"cookieconsent-category-desc-strictly-necessary": "這些 cookie 對於您瀏覽網站和使用其功能（例如造訪網站的安全區域）不可缺少。您的 cookie 偏好設定也屬於此類。",
+	"cookieconsent-category-desc-preference": "這些 cookie 也被稱為「功能性 cookie」，能用來讓網站記住您過去所做的選擇，例如您偏好的語言或是您的使用者名稱與密碼，以便您可以自動登入。",
+	"cookieconsent-category-desc-statistics": "這些也被稱為「效能 cookie」的 cookie 會收集您如何使用網站的資訊，例如您造訪了哪些頁面以及點擊了哪些連結。這些資訊都不會識別出您的身分，唯一目的是改善網站功能。",
+	"cookieconsent-category-desc-marketing": "這些 cookie 會追蹤您的線上活動，以協助廣告主傳遞更相關的廣告或限制您看到廣告的次數。這些 cookie 可能會與其他組織或廣告商分享資訊。",
+	"cookieconsent-detailed-dialog-intro": "<p>我們使用 cookie（和類似技術）來個人化內容、改善網站、分析流量。</p><p>我們與合作夥伴以這些 cookie 收集您的資訊，並追蹤您在我們網站上站內站外的網路行為。透過這種方式，我們建立了您的個人資料。我們會根據您的偏好，來調整我們的網站與情報內容。我們也會根據您近期的上網行為，來顯示目標式廣告。您可以閱讀我們的[[privacy policy|隱私權政策]]來了解更多資訊。</p><p>更新您的 cookie 偏好設定時，會重新載入頁面。</p>",
+	"cookieconsent-detailed-dialog-outro": "<p>您的 cookie 設定將保存一年。如果您想在此期間更改 cookie 的偏好設定，可以使用網站頁腳中的連結。您更新後的 cookie 偏好設定同樣會保存一年。</p>",
+	"cookieconsent-simple-dialog-content": "<p>我們使用 cookie（和類似技術）來個人化內容、改善網站、分析流量。</p><p>我們與合作夥伴以這些 cookie 收集您的資訊，並追蹤您在我們網站上站內站外的網路行為。透過這種方式，我們建立了您的個人資料。我們會根據您的偏好，來調整我們的網站與情報內容。我們也會根據您近期的上網行為，來顯示目標式廣告。您可以閱讀我們的[[privacy policy|隱私權政策]]來了解更多資訊。</p><p>如果您想要管理您的 cookie 偏好設定，請點擊<b>管理偏好設定</b>。透過點選「<b>全部接受</b>」，即表示您同意所有 cookie 的使用。您可以隨時更改或撤回您的同意。</p>"
+}
