@@ -1,0 +1,25 @@
+{
+	"@metadata": {
+		"authors": [
+			"Peterxy12"
+		]
+	},
+	"cookieconsent-desc": "MediaWiki的一般数据保护规则（GDPR）合规Cookie通知",
+	"cookieconsent-manage-preferences": "管理Cookie偏好设置",
+	"cookieconsent-manage-preferences-short": "管理偏好设置",
+	"cookieconsent-accept-all": "接受所有cookie",
+	"cookieconsent-simple-dialog-title": "Cookies",
+	"cookieconsent-detailed-dialog-title": "Cookie偏好设置",
+	"cookieconsent-save-preferences": "保存",
+	"cookieconsent-category-name-strictly-necessary": "绝对必要的Cookie",
+	"cookieconsent-category-name-preference": "偏好的cookie",
+	"cookieconsent-category-name-statistics": "分析型Cookie",
+	"cookieconsent-category-name-marketing": "广告Cookie",
+	"cookieconsent-category-desc-strictly-necessary": "这些cookie对于您浏览网站和使用其功能（例如访问网站的安全区域）不可缺少。您的cookie偏好设置也属于此类。",
+	"cookieconsent-category-desc-preference": "这些cookie也被称为“功能性cookie”，能用来让网站记住您过去所做的选择，例如您偏好的语言或是您的用户名与密码，以便您可以自动登录。",
+	"cookieconsent-category-desc-statistics": "这些也被称为“效能cookie”的cookie会收集您如何使用网站的信息，例如您访问了哪些页面以及点击了哪些链接。这些信息都不会识别出您的身份，唯一目的是改善网站功能。",
+	"cookieconsent-category-desc-marketing": "这些cookie会追踪您的在线活动，以协助广告主传递更相关的广告或限制您看到广告的次数。这些cookie可能会与其他组织或广告商分享信息。",
+	"cookieconsent-detailed-dialog-intro": "<p>我们使用cookie（和类似技术）来个人化内容、改善网站、分析流量。</p><p>我们与合作伙伴以这些cookie收集您的信息，并追踪您在我们网站上站内站外的网络行为。透过这种方式，我们创建了您的个人数据。我们会根据您的偏好，来调整我们的网站与情报内容。我们也会根据您近期的上网行为，来显示目标式广告。您可以阅读我们的[[privacy policy|隐私权政策]]来了解更多信息。</p><p>更新您的cookie偏好设置时，会重新载入页面。</p>",
+	"cookieconsent-detailed-dialog-outro": "<p>您的cookie设置将保存一年。如果您想在此期间更改cookie的偏好设置，可以使用网站页脚中的链接。您更新后的cookie偏好设置同样会保存一年。</p>",
+	"cookieconsent-simple-dialog-content": "<p>我们使用cookie（和类似技术）来个性化内容、改善网站、分析流量。</p><p>我们与合作伙伴以这些cookie收集您的信息，并追踪您在我们网站上站内站外的网络行为。通过这种方式，我们创建了您的个人数据。我们会根据您的偏好，来调整我们的网站与情报内容。我们也会根据您近期的上网行为，来显示目标式广告。您可以阅读我们的[[privacy policy|隐私权政策]]来了解更多信息。</p><p>如果您想要管理您的cookie偏好设置，请点击<b>管理偏好设置</b>。通过点选“<b>全部接受</b>”，即表示您同意所有cookie的使用。您可以随时更改或撤回您的同意。</p>"
+}
