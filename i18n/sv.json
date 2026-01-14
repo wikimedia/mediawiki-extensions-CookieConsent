@@ -1,0 +1,25 @@
+{
+	"@metadata": {
+		"authors": [
+			"Stefan2255"
+		]
+	},
+	"cookieconsent-desc": "GDPR-kompatibelt cookiemeddelande för MediaWiki",
+	"cookieconsent-manage-preferences": "Hantera cookieinställningar",
+	"cookieconsent-manage-preferences-short": "Hantera inställningar",
+	"cookieconsent-accept-all": "Acceptera alla cookies",
+	"cookieconsent-simple-dialog-title": "Cookies",
+	"cookieconsent-detailed-dialog-title": "Cookie-inställningar",
+	"cookieconsent-save-preferences": "Spara",
+	"cookieconsent-category-name-strictly-necessary": "Absolut nödvändiga cookies",
+	"cookieconsent-category-name-preference": "Preferens cookies",
+	"cookieconsent-category-name-statistics": "Analytiska cookies",
+	"cookieconsent-category-name-marketing": "Annonseringscookies",
+	"cookieconsent-category-desc-strictly-necessary": "Dessa cookies är viktiga för att du ska kunna surfa på webbplatsen och använda dess funktioner, till exempel för att komma åt säkra delar av webbplatsen. Dina cookiepreferenser faller också under denna kategori.",
+	"cookieconsent-category-desc-preference": "Även kända som \"funktionscookies\", gör dessa cookies att webbplatsen kan komma ihåg val du har gjort tidigare, som vilket språk du föredrar eller vad ditt användarnamn och lösenord är, så att du kan logga in automatiskt.",
+	"cookieconsent-category-desc-statistics": "Även kända som \"prestandacookies\", samlar dessa cookies in information om hur du använder webbplatsen, som vilka sidor du besökte och vilka länkar du klickade på. Ingen av denna information kan användas för att identifiera dig. Deras enda syfte är att förbättra webbplatsens funktioner.",
+	"cookieconsent-category-desc-marketing": "Dessa cookies spårar din onlineaktivitet för att hjälpa annonsörer att leverera mer relevant reklam eller för att begränsa hur många gånger du ser en annons. Dessa cookies kan dela den informationen med andra organisationer eller annonsörer.",
+	"cookieconsent-detailed-dialog-intro": "<p>Vi använder cookies (och liknande tekniker) för att anpassa innehåll, förbättra webbplatsen och analysera trafik.</p><p> Med dessa cookies samlar vi och våra partners in information om dig och spårar ditt internetbeteende inom, och eventuellt även utanför, vår webbplats. På så sätt bygger vi din personliga profil. Med detta anpassar vi vår webbplats och kommunikation efter dina preferenser. Vi kan också visa riktade annonser baserat på ditt senaste internetbeteende. Du kan läsa mer om det i vår [[privacy policy|integritetspolicy]].</p><p> Om du uppdaterar dina cookieinställningar laddas sidan om.</p>",
+	"cookieconsent-detailed-dialog-outro": "<p>Dina cookieinställningar kommer att lagras i ett år. Om du vill ändra dina cookieinställningar under tiden kan du använda länken i sidfoten på webbplatsen. Dina uppdaterade cookieinställningar kommer återigen att lagras i ett år.</p>",
+	"cookieconsent-simple-dialog-content": "<p>Vi använder cookies (och liknande tekniker) för att anpassa innehåll, förbättra webbplatsen och analysera trafik.</p><p> Med dessa cookies samlar vi och våra partners in information om dig och spårar ditt internetbeteende inom, och eventuellt även utanför, vår webbplats. På så sätt bygger vi din personliga profil. Med detta anpassar vi vår webbplats och kommunikation efter dina preferenser. Vi kan också visa riktade annonser baserat på ditt senaste internetbeteende. Du kan läsa mer om det i vår [[privacy policy|integritetspolicy]].</p><p> Om du vill hantera dina cookieinställningar klickar du på <b>Hantera inställningar</b> . Genom att klicka på <b>Godkänn alla</b> godkänner du användningen av alla cookies. Du kan när som helst ändra eller återkalla ditt samtycke.</p>"
+}
