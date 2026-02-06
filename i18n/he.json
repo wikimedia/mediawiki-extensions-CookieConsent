@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Neriah"
+		]
+	},
+	"cookieconsent-simple-dialog-title": "עוגיות",
+	"cookieconsent-detailed-dialog-title": "העדפות עוגיות",
+	"cookieconsent-save-preferences": "שמירה",
+	"cookieconsent-back": "חזרה",
+	"cookieconsent-cancel": "ביטול",
+	"cookieconsent-category-name-strictly-necessary": "קבצי עוגיות הכרחיים"
+}
