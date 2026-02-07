@@ -27,15 +27,21 @@
 			"value": {
 				"preference": {
 					"namemsg": "cookieconsent-category-name-preference",
-					"descriptionmsg": "cookieconsent-category-desc-preference"
+					"descriptionmsg": "cookieconsent-category-desc-preference",
+					"selected": false,
+					"disabled": false
 				},
 				"statistics": {
 					"namemsg": "cookieconsent-category-name-statistics",
-					"descriptionmsg": "cookieconsent-category-desc-statistics"
+					"descriptionmsg": "cookieconsent-category-desc-statistics",
+					"selected": false,
+					"disabled": false
 				},
 				"marketing": {
 					"namemsg": "cookieconsent-category-name-marketing",
-					"descriptionmsg": "cookieconsent-category-desc-marketing"
+					"descriptionmsg": "cookieconsent-category-desc-marketing",
+					"selected": false,
+					"disabled": false
 				}
 			},
 			"merge_strategy": "provide_default"
