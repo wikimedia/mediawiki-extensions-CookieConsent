@@ -123,7 +123,7 @@ const cookieConsent = ( function ( $ ) {
 				this.preferenceFieldsetItems = [ necessaryCookiesFieldsetItem ];
 
 				for ( const [ categoryName, category ] of Object.entries( cookieConsent.__getConsentCategories() ) ) {
-					this.preferenceCheckboxes[ categoryName ] = new OO.ui.CheckboxInputWidget();
+					this.preferenceCheckboxes[ categoryName ] = new OO.ui.CheckboxInputWidget( { selected: category.selected, disabled: category.disabled } );
 					this.preferenceFieldsetItems.push( new OO.ui.FieldLayout( this.preferenceCheckboxes[ categoryName ], {
 						label: category.namemsg ? mw.message( category.namemsg ).text() : category.name,
 						align: 'inline',
