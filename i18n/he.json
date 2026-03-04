@@ -1,14 +1,15 @@
 {
 	"@metadata": {
 		"authors": [
-			"Neriah"
+			"Neriah",
+			"Amire80"
 		]
 	},
 	"cookieconsent-manage-preferences-short": "ניהול העדפות",
-	"cookieconsent-accept-all": "קבל את כל העוגיות",
+	"cookieconsent-accept-all": "לקבל את כל העוגיות",
 	"cookieconsent-simple-dialog-title": "עוגיות",
 	"cookieconsent-detailed-dialog-title": "העדפות עוגיות",
 	"cookieconsent-save-preferences": "שמירה",
-	"cookieconsent-category-name-strictly-necessary": "קבצי עוגיות הכרחיים",
+	"cookieconsent-category-name-strictly-necessary": "קובצי עוגיות הכרחיים",
 	"cookieconsent-category-name-preference": "העדפות עוגיות"
 }
