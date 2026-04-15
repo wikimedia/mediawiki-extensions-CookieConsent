@@ -1,0 +1,18 @@
+{
+	"@metadata": {
+		"authors": [
+			"Eduardoaddad"
+		]
+	},
+	"cookieconsent-desc": "Aviso sobre cookies em conformidade com o RGPD para o MediaWiki",
+	"cookieconsent-manage-preferences": "Gerenciar preferências de cookies",
+	"cookieconsent-manage-preferences-short": "Gerenciar preferências",
+	"cookieconsent-accept-all": "Aceitar todos os cookies",
+	"cookieconsent-simple-dialog-title": "Cookies",
+	"cookieconsent-detailed-dialog-title": "Preferências de cookie",
+	"cookieconsent-save-preferences": "Salvar",
+	"cookieconsent-category-name-strictly-necessary": "Cookies estritamente necessários",
+	"cookieconsent-category-name-preference": "Cookies de preferências",
+	"cookieconsent-category-name-statistics": "Cookies analíticos",
+	"cookieconsent-category-name-marketing": "Cookies de publicidade"
+}
