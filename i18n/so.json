@@ -1,0 +1,25 @@
+{
+	"@metadata": {
+		"authors": [
+			"AhmedG612"
+		]
+	},
+	"cookieconsent-desc": "Ogeysiiska cookies-ka ee u hoggaansan GDPR ee MediaWiki",
+	"cookieconsent-manage-preferences": "Maamul doorbidyada cookies-ka",
+	"cookieconsent-manage-preferences-short": "Maamul doorbidyada",
+	"cookieconsent-accept-all": "Aqbal dhammaan cookies-ka",
+	"cookieconsent-simple-dialog-title": "Kukiyada",
+	"cookieconsent-detailed-dialog-title": "Doorbidyada Kukiyada",
+	"cookieconsent-save-preferences": "Kaydi",
+	"cookieconsent-category-name-strictly-necessary": "Kukiyada si adag lagama maarmaanka ah",
+	"cookieconsent-category-name-preference": "Kukiyada doorbidka ah",
+	"cookieconsent-category-name-statistics": "Kukiyada falanqaynta",
+	"cookieconsent-category-name-marketing": "Kukiyada xayaysiinta",
+	"cookieconsent-category-desc-strictly-necessary": "Kukiyadani waa kuwo muhiim u ah inaad ku dhex socoto website-ka oo aad isticmaasho astaamihiisa, sida gelitaanka qaybaha amniga ee bogga. Doorbidyadaada kukiyada sidoo kale waxay ku jiraan qaybtaan.",
+	"cookieconsent-category-desc-preference": "Sidoo kale loo yaqaan \"kukiyada shaqeynta\", kukiyadani waxay u oggolaanayaan website-ka inuu xasuusto doorashooyinka aad hore u sameysay, sida luqadda aad doorbidayso ama magacaaga isticmaale iyo erayga sirta ah si aad si toos ah ugu gasho.",
+	"cookieconsent-category-desc-statistics": "Sidoo kale loo yaqaan \"kukiyada waxqabadka\", kukiyadani waxay ururiyaan macluumaad ku saabsan sida aad u isticmaasho website-ka, sida bogagga aad booqatay iyo xiriirrada aad gujisay. Macluumaadkan midna laguma aqoonsan karo adiga. Ujeeddadoodu kaliya waa in la hagaajiyo shaqada mareegta.",
+	"cookieconsent-category-desc-marketing": "Kukiyadani waxay la socdaan dhaqdhaqaaqaaga internet-ka si ay uga caawiyaan xayeysiiyayaasha inay kuu soo bandhigaan xayeysiisyo ku habboon ama ay xaddidaan inta jeer ee aad aragto xayeysiis. Kukiyadani waxay sidoo kale la wadaagi karaan macluumaadkaas ururo kale ama xayeysiiyayaal.",
+	"cookieconsent-detailed-dialog-intro": "<p>Waxaan isticmaalnaa kukiyo (iyo tignoolajiyo la mid ah) si aan u shakhsiyeynno nuxurka, u hagaajino website-ka, oo aan u falanqeyno taraafikada.</p><p>Kukiyadan waxaan annaga iyo la-hawlgalayaashayada ku ururinnaa macluumaad adiga kugu saabsan, waxaanan la soconnaa dhaqdhaqaaqaaga internet-ka gudaha, iyo mararka qaar bannaanka website-keena. Sidaas ayaan ku dhisnaa profile-kaaga gaarka ah. Tani waxay noo oggolaanaysaa inaan website-keena iyo isgaarsiinteenna ku waafajino doorbidyadaada. Waxa kale oo aan ku tusi karnaa xayeysiisyo la beegsaday oo ku saleysan dhaqankaaga internet-ka ee dhow. Waxaad wax badan ka akhrisan kartaa [[privacy policy|siyaasadda asturnaanta]].</p><p>Haddii aad cusboonaysiiso doorbidyada kukiyada, boggu wuu dib u soo shuban doonaa.</p>",
+	"cookieconsent-detailed-dialog-outro": "<p>Doorbidyadaada kukiyada waxaa la kaydin doonaa muddo hal sano ah. Haddii aad rabto inaad beddesho doorbidyadaada kukiyada inta lagu jiro muddadaas, waxaad isticmaali kartaa isku xirka ku yaal qaybta hoose ee website-ka. Doorbidyadaada cusub ee kukiyada mar kale waxaa la kaydin doonaa muddo hal sano ah.</p>",
+	"cookieconsent-simple-dialog-content": "<p>Waxaan isticmaalnaa kukiyo (iyo tignoolajiyo la mid ah) si aan u shakhsiyeynno nuxurka, u hagaajino website-ka, oo aan u falanqeyno taraafikada.</p><p>Kukiyadan waxaan annaga iyo la-hawlgalayaashayada ku ururinnaa macluumaad adiga kugu saabsan, waxaanan la soconnaa dhaqdhaqaaqaaga internet-ka gudaha, iyo mararka qaar bannaanka website-keena. Sidaas ayaan ku dhisnaa profile-kaaga gaarka ah. Tani waxay noo oggolaanaysaa inaan website-keena iyo isgaarsiinteenna ku waafajino doorbidyadaada. Waxa kale oo aan ku tusi karnaa xayeysiisyo la beegsaday oo ku saleysan dhaqankaaga internet-ka ee dhow. Waxaad wax badan ka akhrisan kartaa [[privacy policy|siyaasadda asturnaanta]].</p><p>Haddii aad rabto inaad maamusho doorbidyada kukiyada, guji <b>Maamul doorbidyada</b>. Adigoo gujinaya <b>Aqbal dhammaan</b>, waxaad oggolaanaysaa isticmaalka dhammaan kukiyada. Waxaad beddeli kartaa ama kala laaban kartaa oggolaanshahaaga mar kasta.</p>"
+}
